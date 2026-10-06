@@ -20,7 +20,7 @@ Rules read on 6 October 2026: "Submitting your product to the Woo Marketplace", 
 - **QIT.** The Marketplace runs its Quality Insights Toolkit tests on submission: activation, security, PHP compatibility, malware, validation, API and end-to-end. None of them has been run here. They need a vendor account. A clean Plugin Check is not a QIT pass.
 - **Real input on the lower stack and on post-based storage.** The add-on's screens were clicked through by hand on the newer stack with HPOS. Elsewhere they were driven with scripted events only.
 
-## Checked again on 7 October 2026, with Inline Order Editor 1.0.1
+## Checked again on 6 October 2026, with Inline Order Editor 1.0.1
 
 The free plugin moved its messages to toasts in 1.0.1. The add-on needed no change: it reports through the free plugin's `window.ioefw.notice()`, so "Discount added." and its errors now show as toasts too.
 
