@@ -29,7 +29,7 @@ Start the test store from the free plugin's repository with this add-on mounted 
 
 ## Requirements
 
-WordPress 6.8 or later, WooCommerce 10.0 or later, PHP 7.4 or later, and Inline Order Editor for WooCommerce 1.0.0 or later. Version 1.0.1 was tested with Inline Order Editor 1.0.1 on WordPress 7.1.2 with WooCommerce 11.1.2 and PHP 8.5, and on WordPress 6.8.10 with WooCommerce 10.0.6 and PHP 7.4. Its messages show as toasts with Inline Order Editor 1.0.1 or later.
+WordPress 6.8 or later, WooCommerce 10.0 or later, PHP 7.4 or later, and Inline Order Editor for WooCommerce 1.0.0 or later. Version 1.0.2 was tested with Inline Order Editor 1.0.2 on WordPress 7.1.3 with WooCommerce 11.1.2 and PHP 8.5, and on WordPress 6.8.10 with WooCommerce 10.0.6 and PHP 7.4. Its messages show as toasts with Inline Order Editor 1.0.1 or later.
 
 ## Licence
 

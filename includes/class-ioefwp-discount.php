@@ -41,7 +41,7 @@ final class IOEFWP_Discount {
 			return $can_edit;
 		}
 
-		$typed      = is_scalar( $typed ) ? trim( (string) $typed ) : '';
+		$typed      = is_scalar( $typed ) ? trim( (string) $typed, " \n\r\t\v\x00" ) : '';
 		$is_percent = '%' === substr( $typed, -1 );
 		$number     = wc_format_decimal( $is_percent ? substr( $typed, 0, -1 ) : $typed );
 		$inclusive  = IOEFW_Orders::amounts_include_tax( $order );
@@ -107,6 +107,10 @@ final class IOEFWP_Discount {
 		$subtotal = 0.0;
 
 		foreach ( $order->get_items() as $item ) {
+			if ( ! $item instanceof WC_Order_Item_Product ) {
+				continue;
+			}
+
 			$subtotal += (float) $item->get_subtotal() + ( $inclusive ? (float) $item->get_subtotal_tax() : 0 );
 		}
 

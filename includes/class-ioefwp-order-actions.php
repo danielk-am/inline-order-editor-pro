@@ -120,6 +120,10 @@ final class IOEFWP_Order_Actions {
 		$skipped = array();
 
 		foreach ( $order->get_items() as $item ) {
+			if ( ! $item instanceof WC_Order_Item_Product ) {
+				continue;
+			}
+
 			$product = $item->get_product();
 
 			if ( 'yes' === $item->get_meta( IOEFW_Orders::CUSTOM_ITEM_META ) ) {
@@ -152,6 +156,10 @@ final class IOEFWP_Order_Actions {
 		}
 
 		foreach ( $order->get_items( 'shipping' ) as $item ) {
+			if ( ! $item instanceof WC_Order_Item_Shipping ) {
+				continue;
+			}
+
 			$copy = new WC_Order_Item_Shipping();
 			$copy->set_props(
 				array(

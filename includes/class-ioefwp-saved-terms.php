@@ -51,7 +51,7 @@ final class IOEFWP_Saved_Terms {
 			}
 
 			$name = sanitize_text_field( (string) $row['name'] );
-			$text = trim( sanitize_textarea_field( (string) $row['text'] ) );
+			$text = trim( sanitize_textarea_field( (string) $row['text'] ), " \n\r\t\v\x00" );
 
 			if ( '' !== $name && '' !== $text ) {
 				$clean[] = array(
