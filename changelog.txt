@@ -1,4 +1,7 @@
 *** Inline Order Editor Pro Changelog ***
 
+2026-10-06 - version 1.0.1
+* Tweak - The message after adding a discount now says what the order total is, and what it was.
+
 2026-10-06 - version 1.0.0
 * First release.

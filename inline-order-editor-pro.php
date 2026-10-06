@@ -3,7 +3,7 @@
  * Plugin Name: Inline Order Editor Pro
  * Plugin URI: https://danielk.am
  * Description: Adds saved terms, order discounts, repeat orders, one-step "mark as paid" and draft products from typed items to Inline Order Editor for WooCommerce.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Requires at least: 6.8
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce, inline-order-editor-for-woocommerce
@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'IOEFWP_VERSION', '1.0.0' );
+define( 'IOEFWP_VERSION', '1.0.1' );
 define( 'IOEFWP_PLUGIN_FILE', __FILE__ );
 
 add_action(

@@ -25,7 +25,7 @@ Rules read on 6 October 2026: "Submitting your product to the Woo Marketplace", 
 The free plugin moved its messages to toasts in 1.0.1. The add-on needed no change: it reports through the free plugin's `window.ioefw.notice()`, so "Discount added." and its errors now show as toasts too.
 
 - `tests/run.php`: 64 checks, 0 failed, on WordPress 7.1.2 with WooCommerce 11.1.2 and PHP 8.5, with HPOS and with post-based order storage, and on WordPress 6.8.10 with WooCommerce 10.0.6 and PHP 7.4.33 with HPOS.
-- `readme.txt` in the 1.0.0 ZIP still says the add-on was not tested with post-based order storage. It now has been. Change that line in the next version.
+- Version 1.0.1 of the add-on followed the same day: its `readme.txt` now says post-based order storage was tested, and the discount toast gives the new order total.
 - **Product page.** A name of one to five words, a short description, the gallery images at 896 x 550 or larger, documentation and a support address are entered in the vendor dashboard.
 - **Price.** The agreement asks for the same price as anywhere else the product is sold.
 

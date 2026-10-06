@@ -4,7 +4,7 @@ Tags: woocommerce, phone orders, manual orders, order discount, repeat order
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,7 +45,7 @@ Sold the same typed item three times? "Save typed items as draft products" makes
 * The discount, like every change to an order's lines, works on orders WooCommerce treats as editable: Pending payment, On hold, and new orders.
 * A percentage discount is not updated when you change the order afterwards. Delete the line and add it again.
 * Repeat order copies lines, delivery charges and terms. It does not copy fees, discounts, coupons, downloads or subscriptions.
-* Tested on WordPress 7.1.2 with WooCommerce 11.1.2 and PHP 8.5, and on WordPress 6.8.10 with WooCommerce 10.0.6 and PHP 7.4, with High-Performance Order Storage. Not tested with post-based order storage, subscriptions, bookings, product bundles or tax services.
+* Tested on WordPress 7.1.2 with WooCommerce 11.1.2 and PHP 8.5, with High-Performance Order Storage and with post-based order storage, and on WordPress 6.8.10 with WooCommerce 10.0.6 and PHP 7.4 with High-Performance Order Storage. Not tested with subscriptions, bookings, product bundles or tax services.
 
 == Installation ==
 
@@ -76,6 +76,9 @@ Change the order's status back, as you would for any order. The order note stays
 They stay under Products as drafts until you publish or delete them.
 
 == Changelog ==
+
+= 1.0.1 =
+* The message after adding a discount now says what the order total is, and what it was.
 
 = 1.0.0 =
 * First release.

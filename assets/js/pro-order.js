@@ -12,6 +12,7 @@
 	}
 
 	const __ = wp.i18n.__;
+	const sprintf = wp.i18n.sprintf;
 	const BOX = '#woocommerce-order-items';
 	let busy = false;
 
@@ -49,6 +50,26 @@
 		} else {
 			open.focus();
 		}
+	}
+
+	// What the toast says after a discount: what it did to the total, and on an order that does not
+	// exist yet, what keeps it.
+	function addedText( data ) {
+		const state = editor().getState ? editor().getState() : null;
+		let text = __( 'Discount added.', 'inline-order-editor-pro' );
+
+		if ( data && data.total && data.totalBefore && data.total !== data.totalBefore ) {
+			text = sprintf(
+				/* translators: 1: new order total, 2: order total before the discount. */
+				__( 'Discount added. The order total is now %1$s. It was %2$s.', 'inline-order-editor-pro' ),
+				data.total,
+				data.totalBefore
+			);
+		}
+
+		return state && state.isNew
+			? text + ' ' + __( 'Click Create to keep this order.', 'inline-order-editor-pro' )
+			: text;
 	}
 
 	function applyDiscount() {
@@ -109,7 +130,7 @@
 					window.location.reload();
 				}
 
-				say( __( 'Discount added.', 'inline-order-editor-pro' ) );
+				say( addedText( response.data ) );
 			} );
 	}
 
