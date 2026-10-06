@@ -11,14 +11,15 @@ Rules read on 6 October 2026: "Submitting your product to the Woo Marketplace", 
 - HPOS compatibility is declared, and every order is read and written with `WC_Order` methods. Cart and Checkout blocks compatibility is declared: the add-on touches neither.
 - `changelog.txt` in the Marketplace format.
 - No licence checks, no update code, no upsell or affiliate links, no admin notices.
-- `tests/run.php`: 64 checks, 0 failed, on WordPress 7.1.2 with WooCommerce 11.1.2 and PHP 8.5.
+- `tests/run.php`: 64 checks, 0 failed, on WordPress 7.1.2 with WooCommerce 11.1.2 and PHP 8.5, and again on WordPress 6.8.10 with WooCommerce 10.0.6 and PHP 7.4.33. Both with HPOS.
 - Plugin Check 2.1.0: no errors, one warning. The warning says the required plugin `inline-order-editor-for-woocommerce` is not in the WordPress.org directory. It clears once the free plugin is approved there.
 - `design/marketplace-icon-160x160.png`, drawn from the free plugin's icon.
 
 ## What has not been done
 
 - **QIT.** The Marketplace runs its Quality Insights Toolkit tests on submission: activation, security, PHP compatibility, malware, validation, API and end-to-end. None of them has been run here. They need a vendor account. A clean Plugin Check is not a QIT pass.
-- **The lower stack.** The add-on has not been run on WordPress 6.8 with WooCommerce 10.0 and PHP 7.4. The free plugin has.
+- **Post-based order storage.** The add-on's checks ran with HPOS only. The free plugin's ran with both.
+- **The screens on the lower stack.** The checks passed there, but the add-on's screens were only clicked through on the newer stack.
 - **Product page.** A name of one to five words, a short description, the gallery images at 896 x 550 or larger, documentation and a support address are entered in the vendor dashboard.
 - **Price.** The agreement asks for the same price as anywhere else the product is sold.
 
