@@ -49,6 +49,44 @@ After the changes, on version 1.0.2 of both:
 
 Not covered by any of this: QIT's WooCommerce end-to-end and REST API suites with the add-on active, and its lookup in the WPScan vulnerability database.
 
+## Vendor account and first submission, read on 7 October 2026
+
+Sources: woocommerce.com/partners, and "Getting started", "Submitting your product", "Monetization expectations" and "Product page content and assets" under developer.woocommerce.com/docs/woo-marketplace. The Woo trademark guidelines at woocommerce.com/trademark-guidelines.
+
+**The account.** "Become a partner" on woocommerce.com/partners opens woocommerce.com/marketplace-seller-application. It first asks to connect a WordPress.com account, then for a partner profile about the business and what it sells. The application has to be approved before a product can be submitted. Connecting the account, the profile and the vendor agreement are the account owner's to do.
+
+**Where QIT first runs.** The QIT command line needs an account that already has a listed extension, so it cannot be used before the first product is accepted. The submission itself runs the tests: after the ZIP is uploaded under Submissions > Submit Product, the results appear on the submission, a failed test has a View link, and Replace uploads a corrected ZIP and starts the tests again. A submission has to pass API, end-to-end, activation, security, PHP compatibility, malware and validation.
+
+**Two submissions.** A free plus paid pair goes in as two submissions, one for each, and the Marketplace joins them on one product page. A free plugin with no paid path is not accepted alone, so the free plugin goes in with this add-on, not before it.
+
+**What the submission form asks for.** The product ZIP, business details, and testing instructions.
+
+Draft testing instructions, free plugin:
+
+1. Activate WooCommerce and Inline Order Editor for WooCommerce. No setup is needed.
+2. Go to WooCommerce > Orders > Add new order. An empty row is at the bottom of the items.
+3. Type part of a product's name and pick the suggestion. Then type a name that is not a product, a price and a quantity, and press Enter. Then type a name, choose "Add as a delivery charge", and type an amount.
+4. Double-click a quantity, type a new one and press Enter. The total updates and a message at the bottom of the screen says what changed. Do the same with a price.
+5. Type terms in the Order terms box, click Create, and send the order details to the customer from Order actions. The terms are in the email, and on the customer's order page.
+6. Default terms and where they show are under WooCommerce > Settings > General > Order terms.
+
+Draft testing instructions, add-on (with the free plugin active):
+
+1. WooCommerce > Settings > General > Saved terms: add two sets of terms and save. On an order, choose one under "Use saved terms".
+2. On an order with items, click "Add discount", type 10% and add it. It appears as its own line and the total drops.
+3. In Order actions choose "Repeat this order as a new order" and click Update. A new Pending payment order opens with the same customer, lines, delivery charge and terms.
+4. In Order actions choose "Mark as paid: Cash" and click Update. The order is set to paid the way WooCommerce does it, and an order note records who did it.
+5. On an order with a typed item, choose "Save typed items as draft products" in Order actions and click Update. A draft for each typed item appears under Products.
+
+**Still to decide or settle before submitting.**
+
+- **Name.** The naming rules ask for one to five words, a name that is not a description of the product, and no Woo marks inside the name itself. The trademark guidelines allow "for WooCommerce" after a distinctive product name. "Inline Order Editor" is descriptive, the same concern WordPress.org's form raises. "Order Jotter" is the fallback already checked for the free plugin.
+- **Price**, the support address, and the business details. The suggested price has to be equal to or less than the price anywhere else.
+- **Popular extensions.** The submission page names WooCommerce Bookings, WooCommerce Subscriptions, Product Add-Ons, Product Bundles, Min/Max Quantities and Shipment Tracking, and says a product that breaks one of them may be rejected. Neither plugin has been tested with any of them. They are paid extensions, so testing needs copies.
+- **Outside links.** The business review excludes affiliate links and links to upsell products outside the Marketplace. The free plugin's `readme.txt` has a donate link to danielk.am. Ask, or leave it out of the Marketplace build.
+- **Accessibility.** Submissions have to meet the WordPress accessibility coding standards. The order screen additions were built for keyboard and screen reader use and checked with scripted events. No separate accessibility audit has been done.
+- **The dependency header.** This add-on's `Requires Plugins` names the free plugin's WordPress.org folder. Whether the free plugin keeps that folder name when the Marketplace packages it could not be confirmed.
+
 ## How the free and paid versions fit the rules
 
 The Marketplace takes a free plus paid pair as two submissions, and paid features must not sit inside the free one. They do not: the free plugin has no locked feature and no mention of this add-on, and this add-on is a separate plugin that starts from the free plugin's `ioefw_loaded` action. WordPress.org allows a paid add-on hosted elsewhere on the same terms.
