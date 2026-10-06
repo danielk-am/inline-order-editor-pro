@@ -18,8 +18,14 @@ Rules read on 6 October 2026: "Submitting your product to the Woo Marketplace", 
 ## What has not been done
 
 - **QIT.** The Marketplace runs its Quality Insights Toolkit tests on submission: activation, security, PHP compatibility, malware, validation, API and end-to-end. None of them has been run here. They need a vendor account. A clean Plugin Check is not a QIT pass.
-- **Post-based order storage.** The add-on's checks ran with HPOS only. The free plugin's ran with both.
-- **The screens on the lower stack.** The checks passed there, but the add-on's screens were only clicked through on the newer stack.
+- **Real input on the lower stack and on post-based storage.** The add-on's screens were clicked through by hand on the newer stack with HPOS. Elsewhere they were driven with scripted events only.
+
+## Checked again on 7 October 2026, with Inline Order Editor 1.0.1
+
+The free plugin moved its messages to toasts in 1.0.1. The add-on needed no change: it reports through the free plugin's `window.ioefw.notice()`, so "Discount added." and its errors now show as toasts too.
+
+- `tests/run.php`: 64 checks, 0 failed, on WordPress 7.1.2 with WooCommerce 11.1.2 and PHP 8.5, with HPOS and with post-based order storage, and on WordPress 6.8.10 with WooCommerce 10.0.6 and PHP 7.4.33 with HPOS.
+- `readme.txt` in the 1.0.0 ZIP still says the add-on was not tested with post-based order storage. It now has been. Change that line in the next version.
 - **Product page.** A name of one to five words, a short description, the gallery images at 896 x 550 or larger, documentation and a support address are entered in the vendor dashboard.
 - **Price.** The agreement asks for the same price as anywhere else the product is sold.
 
