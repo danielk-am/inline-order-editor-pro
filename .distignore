@@ -1,0 +1,12 @@
+/.git
+/.github
+/.gitignore
+/.distignore
+/.claude
+/bin
+/build
+/design
+/tests
+/README.md
+*.zip
+.DS_Store

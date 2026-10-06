@@ -1,0 +1,4 @@
+*** Inline Order Editor Pro Changelog ***
+
+2026-10-06 - version 1.0.0
+* First release.

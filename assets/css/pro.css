@@ -1,0 +1,30 @@
+/**
+ * Inline Order Editor Pro: the order screen. Scoped to the add-on's own class names.
+ */
+
+#woocommerce-order-items .ioefwp-discount-form {
+	align-items: center;
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	vertical-align: middle;
+}
+
+#woocommerce-order-items .ioefwp-discount-form[hidden],
+#woocommerce-order-items .ioefwp-discount-open[hidden] {
+	display: none;
+}
+
+#woocommerce-order-items .ioefwp-discount-form[aria-busy="true"] {
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+#woocommerce-order-items .ioefwp-discount-form input[type="text"] {
+	margin: 0;
+}
+
+#ioefw-order-terms .ioefwp-saved-terms-picker {
+	max-width: 240px;
+	vertical-align: baseline;
+}
