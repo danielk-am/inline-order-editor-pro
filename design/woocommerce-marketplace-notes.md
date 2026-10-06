@@ -35,7 +35,7 @@ QIT itself could not run: `qit connect` needs a vendor account, and none exists 
 
 What 1.0.1 showed, and what 1.0.2 changes:
 
-- **PHP compatibility** (PHPCompatibility, the develop branch QIT's documentation names, PHP 7.4 and later): two `trim()` calls here and five in the free plugin rely on PHP's default characters, which change in PHP 8.6. Both plugins now name the characters.
+- **PHP compatibility** (PHPCompatibility, the develop branch QIT's documentation names, PHP 7.4 and later): two `trim()` calls here and five in the free plugin rely on PHP's default characters, which change in PHP 8.6. Both plugins now name the characters. The rule reports this only when the range checked reaches PHP 8.6, which is not released yet: for PHP 7.4 to 8.5, version 1.0.1 was clean.
 - **PHPStan** at level 2 with WordPress and WooCommerce stubs: eight messages here and 19 in the free plugin, all for methods called on a line whose class PHPStan could not see. The code now checks the line's class first. Level 0, the level QIT's page says it runs, was already clean.
 - **Security** (PHPCS `WordPress.Security` and `WordPress.DB`, Semgrep's public PHP, WordPress, JavaScript and secrets packs, gitleaks on the package and the git history): nothing found, before or after.
 - **Validation** (readme, headers, no `Woo:` header, HPOS and blocks declarations) and a **malware pattern** scan: nothing found.
@@ -45,7 +45,7 @@ After the changes, on version 1.0.2 of both:
 - All of the above: nothing found.
 - `tests/run.php`: 64 checks, 0 failed, on WordPress 7.1.3 with WooCommerce 11.1.2 and PHP 8.5, with HPOS and with post-based order storage, and on WordPress 6.8.10 with WooCommerce 10.0.6 and PHP 7.4.33 with HPOS.
 - Plugin Check 2.1.0: no errors, and the same one warning about the required plugin.
-- An activation run on each of those three stores, following the steps on QIT's Activation page: admin pages load, a product and an administrator's order are created, a guest adds to cart and checks out with cash on delivery, both plugins are switched off and on again, and the debug log has no PHP notice, warning or error.
+- An activation run on WordPress 7.1.3 with WooCommerce 11.1.2 and PHP 8.5, and on WordPress 6.8.11 with WooCommerce 10.0.6 and PHP 7.4.33, both with HPOS: admin pages load, a product and an administrator's order are created, a guest adds to cart and checks out with cash on delivery, both plugins are switched off and on again, and the debug log, read from the store's first boot, has no line that a control store without the plugins does not also have. WooCommerce logs a notice and some database errors of its own on these Playground stores. The steps follow QIT's Activation page.
 
 Not covered by any of this: QIT's WooCommerce end-to-end and REST API suites with the add-on active, and its lookup in the WPScan vulnerability database.
 
