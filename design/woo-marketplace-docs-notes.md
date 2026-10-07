@@ -13,7 +13,7 @@ Working record for getting Inline Order Editor for WooCommerce (free) and Inline
   - AC2, must: each requirement is marked for both plugins, with the evidence or the reason it could not be checked.
   - AC3, must: package-level gaps are fixed, with a test that fails without the fix.
   - AC4, should: everything left has an owner and a next step.
-- **State on 7 October 2026:** cycle 1 is done. Free 1.0.3 is released and both repositories are pushed. Formal UAT was not run: see UAT below. The acceptance criteria above are still derived ones that Daniel has not confirmed one by one.
+- **State on 7 October 2026:** cycle 1 is done. Free 1.0.3 is released and both repositories are pushed. Formal UAT was not run: see UAT below. The acceptance criteria above are still derived ones that Daniel has not confirmed one by one. Cycle 2 drafted the listing text and the documentation in English (UK): see "Cycle 2" below.
 
 ## Where things stand
 
@@ -26,9 +26,8 @@ What still needs you before a submission:
 
 - Apply for the partner account, accept the vendor agreement, and enter the business details and support email.
 - Decide the name, the price, and what to do about the donate link.
-- Say whether the three interface strings in British spelling should move to American spelling (see Notes).
 
-What nobody has drafted yet, because it depends on the name: the Marketplace product page text, the FAQs, the documentation, and gallery images for Pro.
+Drafted in cycle 2, with the current name: the Marketplace product page text, the FAQs and the documentation for both. Still missing: gallery images for Pro.
 
 What cannot be checked from here: the QIT API and end-to-end suites, the Marketplace's own changelog validator, the ZIP name it will ask for at upload, and behaviour beside the six popular paid extensions it names.
 
@@ -132,14 +131,14 @@ Status words: **Met**, **Fixed** (in this cycle, locally), **Not met**, **Yours*
 | --- | --- | --- | --- | --- |
 | L1 | A 160 x 160 product icon, square corners, artwork inside the middle 112 x 112 | Fixed | Fixed | `design/marketplace-icon-160x160.png` in both repositories, from `design/marketplace-icon.svg`. Measured: all four corners are the background colour, and the artwork sits between pixels 25 and 134 across and 29 and 130 down. |
 | L2 | A highlight card colour | Yours | Yours | `#2563EB` matches the icon's background. |
-| L3 | A short description | Not met | Not met | The readme's one-line descriptions are a base. Not rewritten for the Marketplace. |
+| L3 | A short description | Drafted | Drafted | `design/marketplace-listing.md`. |
 | L4 | Gallery images at 896 x 550 or larger | Met by size | Not met | The free plugin's five screenshots are 1280 x 860. The add-on has none. |
-| L5 | A description that leads with three to five benefits, in plain words, with no emojis | Not met | Not met | Not drafted. It depends on the name. |
-| L6 | American English, the Oxford comma, sentence-case headings, no outside links | Not met | Not met | Applies to the listing and the documentation. The readmes use British spelling ("catalogue" eight times, "colour", "cheque") and the free one links to GitHub. |
-| L7 | Short, practical FAQs | Not met | Not met | The readme FAQs are a base. |
+| L5 | A description that leads with three to five benefits, in plain words, with no emojis | Drafted | Drafted | One shared page in `design/marketplace-listing.md`, written with the current name. |
+| L6 | American English, the Oxford comma, sentence-case headings, no outside links | Drafted, except spelling | Drafted, except spelling | The drafts follow every rule but one: they use English (UK) spelling, on Daniel's instruction of 7 October 2026. A reviewer may ask for American spelling. Four words would change: catalogue, colour, cheque and licence. |
+| L7 | Short, practical FAQs | Drafted | Drafted | Twelve questions in `design/marketplace-listing.md`. |
 | L8 | A requirements entry | Yours | Yours | WooCommerce 10.0, WordPress 6.8 and PHP 7.4 or later. The add-on also needs the free plugin. |
 | L9 | A demo over HTTPS showing front and back end | Not met | Not met | Nothing exists. The page calls a demo important and does not call it required. |
-| L10 | Documentation on WooCommerce.com: introduction, installation pattern, every feature and setting, troubleshooting, screenshots with alt text | Not met | Not met | Not drafted. |
+| L10 | Documentation on WooCommerce.com: introduction, installation pattern, every feature and setting, troubleshooting, screenshots with alt text | Drafted | Drafted, no images | `design/marketplace-docs-free.md` and `design/marketplace-docs-pro.md`. The free draft names a screenshot and alt text for each place. The add-on has no screenshots yet. |
 
 ### Excellence Verified badge
 
@@ -149,7 +148,7 @@ Status words: **Met**, **Fixed** (in this cycle, locally), **Not met**, **Yours*
 
 ## Notes that are not requirements
 
-- **Spelling in the interface.** Three strings a shopkeeper sees use British spelling: "From your catalogue" and "Note, such as colour or size (optional)" in the free plugin, and "Catalogue products are at today's prices" in an order note from the add-on. The style guide's American English rule is written for product pages and documentation, so this is not a stated requirement. WordPress plugins are normally written in American English and translated from there. Changing them is a small release for both plugins. It is your product's voice, so it is your call.
+- **Spelling in the interface: decided.** Daniel chose English (UK) on 7 October 2026, so these stay as they are. Three strings a shopkeeper sees use British spelling: "From your catalogue" and "Note, such as colour or size (optional)" in the free plugin, and "Catalogue products are at today's prices" in an order note from the add-on. The style guide's American English rule is written for product pages and documentation, so this is not a stated requirement. WordPress plugins are normally written in American English and translated from there. Changing them is a small release for both plugins. It is your product's voice, so it is your call.
 - **A demo without a server.** A WordPress Playground link could show the free plugin's order screen in a browser. It has not been tried, and it would not work for the add-on while its repository is private.
 - **The icon is shared.** One icon serves both submissions, since the Marketplace joins them on one product page.
 
@@ -166,6 +165,19 @@ Status words: **Met**, **Fixed** (in this cycle, locally), **Not met**, **Yours*
 | UAT | See UAT below. | Formal UAT not applicable. Routine check done. |
 | Owner decision | Daniel said "Go" to committing both repositories, pushing, and releasing free 1.0.3. | Recorded as given. It is a go-ahead for those actions. |
 | Release | Ran the checks again on the ZIP, committed and pushed the free repository at `203f4f8`, published v1.0.3 with the ZIP, and downloaded it back. | The downloaded ZIP has the same sha256 as the one tested. The tag points at `203f4f8`. |
+
+## Cycle 2, 7 October 2026: listing text and documentation
+
+| Stage | What happened | Result |
+| --- | --- | --- |
+| Note taking | Daniel asked for English (UK) spelling and for drafts of the listing text and the documentation. | The interface strings stay as they are. The drafts use UK spelling, against the style guide's American English rule. That is recorded as his decision. |
+| Reproduce | Not applicable: new writing, no defect. | The baseline is rows L3, L5, L6, L7 and L10 above, which were "Not met". |
+| Search existing artifacts | The two `readme.txt` files, both `README.md` files and the plugins' own interface strings. | Fork: the readmes are the base, rewritten to the Marketplace's shape. |
+| Build | Wrote `design/marketplace-listing.md`, `design/marketplace-docs-free.md` and `design/marketplace-docs-pro.md`. | Three drafts, each ending with a table of which file backs which claim. |
+| Evidence | Checked the steps against the scripts and classes, which corrected two details in the free draft: where "From your catalogue" appears, and what Enter does after a name. Counted the search title (54 characters) and meta description (139). Checked for dashes, emojis, outside links and headings below H3: none. | The drafts match the code at free 1.0.3 and Pro 1.0.2. |
+| UAT | Not applicable: drafts for Daniel to read. | Waiting for his read. |
+
+Left open by the drafts: no search data exists, so no search terms are targeted and the keyword list is a guess. The speed answer in the FAQs comes from where the files load, not from a measurement. The add-on has no screenshots. The drafts were committed with this file on Daniel's instruction the same day.
 
 ## Prior-art check
 
@@ -231,8 +243,7 @@ The acceptance skill calls its user panels oversized when the release does not c
 | --- | --- | --- |
 | Partner account, agreement, business details, support email | Daniel | woocommerce.com/partners |
 | Name, price, donate link, highlight colour | Daniel | Decide before the listing text is written. |
-| Interface spelling | Daniel | Say yes or no. |
-| Product page text, FAQs and documentation for both | Agent, once the name is settled | Draft in American English to the style guide. |
+| Product page text, FAQs and documentation for both | Daniel | Drafted in English (UK). Read them, then paste them into the vendor dashboard once the account is approved. If the name changes, replace it throughout. |
 | Gallery images for the add-on | Agent | Capture from the test store, as the free plugin's script does. |
 | The six popular extensions | Daniel to supply copies, then agent | Test each beside both plugins. |
 | QIT results | Daniel to submit, then agent | Read them from the submission and fix what fails. |
