@@ -27,6 +27,8 @@ bin/build.sh --zip
 
 Start the test store from the free plugin's repository with this add-on mounted as well, then open `/wp-admin/admin-post.php?action=ioefw_dev&script=prorun` to run `tests/run.php`. The checks cover each feature and each of its limits, with tax added on top and tax included.
 
+`php tests/package.php build/inline-order-editor-pro` checks the built package without a store: `changelog.txt` is there in the WooCommerce.com Marketplace format, and its newest entry, the plugin header and the readme's Stable tag carry the same version.
+
 ## Requirements
 
 WordPress 6.8 or later, WooCommerce 10.0 or later, PHP 7.4 or later, and Inline Order Editor for WooCommerce 1.0.0 or later. Version 1.0.2 was tested with Inline Order Editor 1.0.2 on WordPress 7.1.3 with WooCommerce 11.1.2 and PHP 8.5, and on WordPress 6.8.10 with WooCommerce 10.0.6 and PHP 7.4. Its messages show as toasts with Inline Order Editor 1.0.1 or later.
