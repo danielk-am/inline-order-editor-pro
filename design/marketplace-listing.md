@@ -174,12 +174,21 @@ The free plugin's five screenshots are 1280 x 860, which is above the Marketplac
 4. `screenshot-4.png`. Alt text: The Order terms box on an order, filled in from the default terms.
 5. `screenshot-5.png`. Alt text: The order terms in the customer's order email.
 
-The paid version has no images yet.
+The paid version's seven images are in `design/gallery/`, also 1280 x 860, captured on 7 October 2026 with `node design/screenshots.mjs`. Suggested order and alt text:
+
+1. `gallery-2.png`, featured image. Alt text: An order with a discount added as its own line, and a message saying what the discount did to the order total.
+2. `gallery-1.png`. Alt text: The Add discount form on an order, with 10% typed in and the name Regular customer.
+3. `gallery-3.png`. Alt text: The Order terms box on an order, filled in from a saved set of terms, with the Use saved terms menu beneath it.
+4. `gallery-4.png`. Alt text: The Saved terms setting with two sets filled in, Wedding orders and Trade customers.
+5. `gallery-5.png`. Alt text: A new order made by repeating an earlier one, with the same lines and a note saying which order it came from.
+6. `gallery-7.png`. Alt text: An order marked as paid by cash, with the paid amount under the totals and a note of who recorded it.
+7. `gallery-6.png`. Alt text: The Products list showing two typed items saved as draft products.
+
+No image shows the Order actions menu open. A menu's list opens outside the page, where the capture cannot reach it.
 
 ## What is left open
 
 - The name, the price, and the demo are not decided.
-- No images exist for the paid version's features.
 - The search keywords are guesses until there is real search data.
 - "Will it slow down my shop?" is answered from where the files load. No speed measurement has been taken.
 

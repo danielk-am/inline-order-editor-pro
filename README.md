@@ -27,6 +27,8 @@ bin/build.sh --zip
 
 Start the test store from the free plugin's repository with this add-on mounted as well, then open `/wp-admin/admin-post.php?action=ioefw_dev&script=prorun` to run `tests/run.php`. The checks cover each feature and each of its limits, with tax added on top and tax included.
 
+`node design/screenshots.mjs` captures the WooCommerce.com Marketplace gallery images into `design/gallery/` from a fresh test store. It needs Google Chrome and Node 22 or later. Keep other plugins out of that store, or their boxes and notices end up in the pictures.
+
 `php tests/package.php build/inline-order-editor-pro` checks the built package without a store: `changelog.txt` is there in the WooCommerce.com Marketplace format, and its newest entry, the plugin header and the readme's Stable tag carry the same version.
 
 ## Requirements

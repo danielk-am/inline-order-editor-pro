@@ -5,7 +5,7 @@ Draft of the documentation page for WooCommerce.com. Not shipped in the ZIP. Wri
 Before pasting it into the vendor dashboard:
 
 - Replace the installation section with the Marketplace's own installation pattern.
-- No screenshots exist for the add-on yet. Each place that needs one is marked with what it should show.
+- Add the screenshots where marked. Each mark gives the image in `design/gallery/` and its alt text.
 - The page title is the product name, so the draft starts at H2.
 
 ---
@@ -49,7 +49,7 @@ Saved terms are sets of terms you use often, such as one for weddings and one fo
 4. Select **Add another** for each further set, or **Remove** to delete one.
 5. Save your changes.
 
-Screenshot needed: the Saved terms setting with two sets filled in.
+Screenshot: `gallery-4.png`. Alt text: The Saved terms setting with two sets filled in, Wedding orders and Trade customers.
 
 ### Use saved terms on an order
 
@@ -57,6 +57,8 @@ Screenshot needed: the Saved terms setting with two sets filled in.
 2. Choose a set from **Use saved terms**. The box is filled in with its text.
 3. Change the text for this order if you need to.
 4. Select **Create** or **Update**. Nothing is saved until you do.
+
+Screenshot: `gallery-3.png`. Alt text: The Order terms box on an order, filled in from a saved set of terms, with the Use saved terms menu beneath it.
 
 Each order keeps its own copy of its terms. Changing or removing a saved set later does not change orders that already used it.
 
@@ -71,9 +73,11 @@ Use an order discount when you have agreed a reduction with the customer and do 
 3. Give the discount a name if you like. Without one, it is called Discount.
 4. Select **Take it off**.
 
-Screenshot needed: the Add discount form open, with 10% typed in.
+Screenshot: `gallery-1.png`. Alt text: The Add discount form on an order, with 10% typed in and the name Regular customer.
 
 The discount is added as its own line, and a message says what the order total is now and what it was. The customer sees the line on their emails and invoices.
+
+Screenshot: `gallery-2.png`. Alt text: An order with a discount added as its own line, and a message saying what the discount did to the order total.
 
 ### How the discount is worked out
 
@@ -92,9 +96,9 @@ Delete its line with the line's delete button, as you would any fee.
 2. In the **Order actions** box, choose **Repeat this order as a new order**.
 3. Select **Update**.
 
-Screenshot needed: the Order actions box with the three new actions in its list.
-
 A new Pending payment order opens, ready to change. It has the same customer, addresses, lines, delivery charge, and terms.
+
+Screenshot: `gallery-5.png`. Alt text: A new order made by repeating an earlier one, with the same lines and a note saying which order it came from.
 
 | From the earlier order | In the new order |
 | --- | --- |
@@ -115,6 +119,8 @@ The earlier order gets a note saying which order it was repeated as. The new ord
 
 The order is set to paid the way WooCommerce does it, so WooCommerce sends its usual emails and applies its stock rules. An order note records how it was paid and who recorded it.
 
+Screenshot: `gallery-7.png`. Alt text: An order marked as paid by cash, with the paid amount under the totals and a note of who recorded it.
+
 If you have switched on cash on delivery, direct bank transfer, or cheque payments under WooCommerce > Settings > Payments, each one is offered as a "Mark as paid" action too.
 
 The action is only offered on an order that is waiting for payment and is above zero. An order cannot be marked as paid twice.
@@ -132,6 +138,8 @@ When you have sold the same typed item a few times, you can turn it into a produ
 3. Select **Update**.
 
 A draft product is made for each typed item, with its name and price. An order note lists them. The drafts wait under Products for you to finish and publish. Nothing is published for you, and the order's lines stay as they are.
+
+Screenshot: `gallery-6.png`. Alt text: The Products list showing two typed items saved as draft products.
 
 The action is offered once per item. If you delete the order, the drafts stay under Products until you publish or delete them.
 
@@ -200,4 +208,4 @@ Draft ends.
 | Draft products: permission, one draft per item, nothing published | `class-ioefwp-order-actions.php`, `save_typed_items_as_drafts()`; `tests/run.php` |
 | Uninstall removes one setting | `uninstall.php` |
 
-Not checked: what the add-on's screens look like in a screenshot, since none has been taken. The sentence about a payment method being switched off after the page was opened is the likely cause of that message, read from the code and not reproduced.
+The screenshots were captured from a test store on 7 October 2026 and each was opened and checked against its alt text. Not checked: the sentence about a payment method being switched off after the page was opened, which is the likely cause of that message, read from the code and not reproduced.

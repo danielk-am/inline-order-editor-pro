@@ -27,7 +27,7 @@ What still needs you before a submission:
 - Apply for the partner account, accept the vendor agreement, and enter the business details and support email.
 - Decide the name, the price, and what to do about the donate link.
 
-Drafted in cycle 2, with the current name: the Marketplace product page text, the FAQs and the documentation for both. Still missing: gallery images for Pro.
+Drafted in cycle 2, with the current name: the Marketplace product page text, the FAQs and the documentation for both. Cycle 3 captured seven gallery images for Pro.
 
 What cannot be checked from here: the QIT API and end-to-end suites, the Marketplace's own changelog validator, the ZIP name it will ask for at upload, and behaviour beside the six popular paid extensions it names.
 
@@ -132,13 +132,13 @@ Status words: **Met**, **Fixed** (in this cycle, locally), **Not met**, **Yours*
 | L1 | A 160 x 160 product icon, square corners, artwork inside the middle 112 x 112 | Fixed | Fixed | `design/marketplace-icon-160x160.png` in both repositories, from `design/marketplace-icon.svg`. Measured: all four corners are the background colour, and the artwork sits between pixels 25 and 134 across and 29 and 130 down. |
 | L2 | A highlight card colour | Yours | Yours | `#2563EB` matches the icon's background. |
 | L3 | A short description | Drafted | Drafted | `design/marketplace-listing.md`. |
-| L4 | Gallery images at 896 x 550 or larger | Met by size | Not met | The free plugin's five screenshots are 1280 x 860. The add-on has none. |
+| L4 | Gallery images at 896 x 550 or larger | Met by size | Met by size | The free plugin's five screenshots and the add-on's seven gallery images are 1280 x 860. The add-on's are in `design/gallery/`. |
 | L5 | A description that leads with three to five benefits, in plain words, with no emojis | Drafted | Drafted | One shared page in `design/marketplace-listing.md`, written with the current name. |
 | L6 | American English, the Oxford comma, sentence-case headings, no outside links | Drafted, except spelling | Drafted, except spelling | The drafts follow every rule but one: they use English (UK) spelling, on Daniel's instruction of 7 October 2026. A reviewer may ask for American spelling. Four words would change: catalogue, colour, cheque and licence. |
 | L7 | Short, practical FAQs | Drafted | Drafted | Twelve questions in `design/marketplace-listing.md`. |
 | L8 | A requirements entry | Yours | Yours | WooCommerce 10.0, WordPress 6.8 and PHP 7.4 or later. The add-on also needs the free plugin. |
 | L9 | A demo over HTTPS showing front and back end | Not met | Not met | Nothing exists. The page calls a demo important and does not call it required. |
-| L10 | Documentation on WooCommerce.com: introduction, installation pattern, every feature and setting, troubleshooting, screenshots with alt text | Drafted | Drafted, no images | `design/marketplace-docs-free.md` and `design/marketplace-docs-pro.md`. The free draft names a screenshot and alt text for each place. The add-on has no screenshots yet. |
+| L10 | Documentation on WooCommerce.com: introduction, installation pattern, every feature and setting, troubleshooting, screenshots with alt text | Drafted | Drafted | `design/marketplace-docs-free.md` and `design/marketplace-docs-pro.md`. Each draft names a screenshot and alt text for each place. |
 
 ### Excellence Verified badge
 
@@ -178,6 +178,18 @@ Status words: **Met**, **Fixed** (in this cycle, locally), **Not met**, **Yours*
 | UAT | Not applicable: drafts for Daniel to read. | Waiting for his read. |
 
 Left open by the drafts: no search data exists, so no search terms are targeted and the keyword list is a guess. The speed answer in the FAQs comes from where the files load, not from a measurement. The add-on has no screenshots. The drafts were committed with this file on Daniel's instruction the same day.
+
+## Cycle 3, 7 October 2026: gallery images for the add-on
+
+| Stage | What happened | Result |
+| --- | --- | --- |
+| Note taking | Daniel asked for the add-on's gallery screenshots. | Row L4 was "Not met" for the add-on. |
+| Search existing artifacts | The free repository's `design/screenshots.mjs`. | Fork: the same capture method, with the add-on's own steps. |
+| Build | Wrote `design/screenshots.mjs`. It seeds the sample shop, types two sets of saved terms into the setting, adds a typed item and a 10% discount, picks saved terms, saves typed items as drafts, repeats the order and marks the new one as paid, with real mouse and key events. Menus are chosen by label, because a menu's list opens outside the page. | Seven images in `design/gallery/`, 1280 x 860. |
+| Evidence | The first run was on the usual test store. Its other plugins put their own boxes and notices in the pictures, and the last step timed out because the script expected the wrong wording of the paid note. Fixed both and ran again on a store with only WooCommerce 11.1.2 and the two plugins. All seven were opened and checked against their alt text. | Each image shows what its alt text says. |
+| UAT | Not applicable: images for Daniel to look at. | Waiting for his look. |
+
+Left open: no image shows the Order actions menu open. The images were committed with this file on Daniel's instruction the same day.
 
 ## Prior-art check
 
@@ -244,7 +256,6 @@ The acceptance skill calls its user panels oversized when the release does not c
 | Partner account, agreement, business details, support email | Daniel | woocommerce.com/partners |
 | Name, price, donate link, highlight colour | Daniel | Decide before the listing text is written. |
 | Product page text, FAQs and documentation for both | Daniel | Drafted in English (UK). Read them, then paste them into the vendor dashboard once the account is approved. If the name changes, replace it throughout. |
-| Gallery images for the add-on | Agent | Capture from the test store, as the free plugin's script does. |
 | The six popular extensions | Daniel to supply copies, then agent | Test each beside both plugins. |
 | QIT results | Daniel to submit, then agent | Read them from the submission and fix what fails. |
 | Tracker entry in Plane | Daniel, or an agent with Plane access | None was read or written from this session. |
