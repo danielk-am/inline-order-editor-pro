@@ -1,0 +1,53 @@
+{
+  "apiVersion": 3,
+  "name": "alkamy/document-part",
+  "title": "Document area",
+  "category": "widgets",
+  "icon": "media-document",
+  "description": "Order data and authored text for a PDF layout.",
+  "textdomain": "inline-order-editor-pro",
+  "attributes": {
+    "part": {
+      "type": "string",
+      "default": "header"
+    },
+    "spaceAfter": {
+      "type": "number",
+      "default": 16
+    },
+    "text": {
+      "type": "string",
+      "default": ""
+    },
+    "textAlign": {
+      "type": "string",
+      "default": "left"
+    },
+    "density": {
+      "type": "string",
+      "default": "inherit"
+    },
+    "footerType": {
+      "type": "string",
+      "default": "inherit"
+    }
+  },
+  "supports": {
+    "html": false,
+    "multiple": true,
+    "color": {
+      "text": true,
+      "background": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "typography": {
+      "fontSize": true
+    }
+  },
+  "editorScript": "alkamy-document-block",
+  "style": "file:./style.css",
+  "version": "1.2.1"
+}

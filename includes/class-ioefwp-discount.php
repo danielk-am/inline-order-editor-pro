@@ -22,6 +22,7 @@ final class IOEFWP_Discount {
 	 */
 	public static function init() {
 		add_action( 'woocommerce_order_item_add_action_buttons', array( __CLASS__, 'render_button' ), 20 );
+		add_action( 'woocommerce_admin_order_totals_after_total', array( __CLASS__, 'render_form' ), 20 );
 		add_action( 'wp_ajax_ioefwp_add_discount', array( __CLASS__, 'ajax_add' ) );
 	}
 
@@ -118,7 +119,7 @@ final class IOEFWP_Discount {
 	}
 
 	/**
-	 * Draws the Add discount button and its small form in the Items box.
+	 * Draws the Add discount button among the order's own buttons.
 	 *
 	 * @param mixed $order The order.
 	 */
@@ -128,18 +129,39 @@ final class IOEFWP_Discount {
 		}
 		?>
 		<button type="button" class="button ioefwp-discount-open"><?php esc_html_e( 'Add discount', 'inline-order-editor-pro' ); ?></button>
-		<span class="ioefwp-discount-form" hidden>
-			<label>
-				<span class="screen-reader-text"><?php esc_html_e( 'Discount: an amount or a percentage', 'inline-order-editor-pro' ); ?></span>
-				<input type="text" class="ioefwp-discount-amount" inputmode="decimal" autocomplete="off" size="8" placeholder="<?php esc_attr_e( '10 or 10%', 'inline-order-editor-pro' ); ?>" />
-			</label>
-			<label>
-				<span class="screen-reader-text"><?php esc_html_e( 'Name of the discount', 'inline-order-editor-pro' ); ?></span>
-				<input type="text" class="ioefwp-discount-label" autocomplete="off" size="16" maxlength="100" placeholder="<?php esc_attr_e( 'Discount', 'inline-order-editor-pro' ); ?>" />
-			</label>
-			<button type="button" class="button button-primary ioefwp-discount-apply"><?php esc_html_e( 'Take it off', 'inline-order-editor-pro' ); ?></button>
-			<button type="button" class="button-link ioefwp-discount-cancel"><?php esc_html_e( 'Cancel', 'inline-order-editor-pro' ); ?></button>
-		</span>
+		<?php
+	}
+
+	/**
+	 * Draws the small discount form on its own line under the order's totals, above its buttons.
+	 *
+	 * It used to sit among the buttons, where it pushed Recalculate onto a second line.
+	 *
+	 * @param mixed $order_id The order's ID.
+	 */
+	public static function render_form( $order_id ) {
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order instanceof WC_Order || true !== IOEFW_Orders::can_edit( $order ) ) {
+			return;
+		}
+		?>
+		<tr class="ioefwp-discount-row" hidden>
+			<td colspan="3">
+				<span class="ioefwp-discount-form">
+					<label>
+						<span class="screen-reader-text"><?php esc_html_e( 'Discount: an amount or a percentage', 'inline-order-editor-pro' ); ?></span>
+						<input type="text" class="ioefwp-discount-amount" inputmode="decimal" autocomplete="off" size="8" placeholder="<?php esc_attr_e( '10 or 10%', 'inline-order-editor-pro' ); ?>" />
+					</label>
+					<label>
+						<span class="screen-reader-text"><?php esc_html_e( 'Name of the discount', 'inline-order-editor-pro' ); ?></span>
+						<input type="text" class="ioefwp-discount-label" autocomplete="off" size="16" maxlength="100" placeholder="<?php esc_attr_e( 'Discount', 'inline-order-editor-pro' ); ?>" />
+					</label>
+					<button type="button" class="button button-primary ioefwp-discount-apply"><?php esc_html_e( 'Take it off', 'inline-order-editor-pro' ); ?></button>
+					<button type="button" class="button-link ioefwp-discount-cancel"><?php esc_html_e( 'Cancel', 'inline-order-editor-pro' ); ?></button>
+				</span>
+			</td>
+		</tr>
 		<?php
 	}
 

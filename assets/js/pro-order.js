@@ -1,7 +1,7 @@
 /**
- * Inline Order Editor Pro: the order screen.
+ * Alkamy Order Editor Pro for WooCommerce: the order screen.
  *
- * The saved terms picker and the Add discount form. Both lean on Inline Order Editor's own script
+ * The saved terms picker and the Add discount form. Both lean on Alkamy Order Editor's own script
  * for drawing the Items box and for the line that says what happened.
  */
 ( function ( $, wp, settings ) {
@@ -42,7 +42,8 @@
 			return;
 		}
 
-		element.hidden = ! show;
+		// The form has a line of its own under the totals, so the order's buttons stay where they are.
+		( element.closest( '.ioefwp-discount-row' ) || element ).hidden = ! show;
 		open.hidden = show;
 
 		if ( show ) {

@@ -1,0 +1,13 @@
+# Local invoice delivery and WPC PDF retirement
+
+WooCommerce → Invoicing → Invoice emails and customer downloads controls automatic attachments. Processing and completed customer emails are selected by default. Order details/customer invoice emails are optional. Delivery remains disabled until saved, and skips attachments while WPC PDF Invoices is active to avoid duplicates.
+
+An invoice is rendered once from saved WooCommerce order data and the configured PDF layout. Later emails and authenticated customer downloads reuse the same bytes. Manual order exports use that archive once it exists. Issued and reserved numbers cannot be changed. New invoices use a monthly sequence with configurable year/month prefix and padding; existing merchant-assigned numbers are retained. Unissued manual exports can remain unnumbered drafts. No operation here charges a customer or creates a refund.
+
+Archives and global number claims live in private, non-autoloaded database options. Back them up with the store database. No archive is exposed as a static upload URL. Only a logged-in order owner or an authorized WooCommerce administrator can use the nonce-protected download endpoint. Email attachment files live in a random owner-only system temporary directory and remain available until request shutdown.
+
+WPC import defaults to dry-run and requires its existing numbered invoice PDFs. It preserves the number, original timestamp and exact invoice/packing-slip bytes, verifies their hashes, and rejects missing or conflicting records. Keep WPC installed for rollback; deactivate it only after successful import and readback. The original vendor ledger and files are retained. Existing authenticated legacy links continue to work through Alkamy. A custom section/product-term snippet can remain active for its editing controls; its sanitized metadata is read by new layouts. Native footer settings control new/default orders; explicit legacy custom or hidden footer choices are preserved.
+
+If invoice generation fails, the normal WooCommerce email is still allowed to send, and no invalid PDF is attached. The order workspace shows the delivery error and WooCommerce logs use source `alkamy-invoice-delivery`. Correct reconciliation, numbering or archive integrity before resending. A crashed issuing process can leave its per-order lock in place. An administrator must inspect the archive, claim and durable reservation before releasing that lock. Never discard a claim or reservation merely to reuse a number. Damaged archives must be restored from backup; they are not silently regenerated.
+
+This replaces the WPC PDF extension's document delivery duties. Checkout field editing and delivery-slot scheduling are separate extensions and remain outside this retirement.

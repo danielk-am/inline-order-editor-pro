@@ -1,0 +1,83 @@
+1
+00:00:00,500 --> 00:00:04,603
+Pro adds an invoicing workspace to the WooCommerce order screen.
+
+2
+00:00:04,603 --> 00:00:10,037
+Billing and shipping details are stacked, with lightly shaded fields for inline editing.
+
+3
+00:00:10,037 --> 00:00:14,210
+Keep a separate delivery address, or use the same address as billing.
+
+4
+00:00:15,510 --> 00:00:19,597
+Add order references such as a purchase order or event date.
+
+5
+00:00:19,597 --> 00:00:22,319
+Custom fields appear on your documents.
+
+6
+00:00:22,319 --> 00:00:28,600
+Use Send to payment provider only for fields you want forwarded through a supported payment gateway.
+
+7
+00:00:29,900 --> 00:00:33,521
+Add headings and Markdown content to your document sections.
+
+8
+00:00:33,521 --> 00:00:35,996
+Use the handles to change their order.
+
+9
+00:00:35,996 --> 00:00:42,570
+The paper preview reflects section edits before you save the order, so you can check the wording and arrangement.
+
+10
+00:00:44,096 --> 00:00:47,839
+Set a shared logo and company details under Invoicing.
+
+11
+00:00:47,839 --> 00:00:52,405
+Choose paper size, compact item spacing, and a footer style.
+
+12
+00:00:52,405 --> 00:00:57,496
+Assign a different saved layout to each document type when you need different designs.
+
+13
+00:00:58,833 --> 00:01:03,546
+Use the WordPress block editor to design reusable PDF layouts.
+
+14
+00:01:03,546 --> 00:01:09,670
+Arrange dynamic document areas with supported headings, paragraphs, images, and patterns.
+
+15
+00:01:09,670 --> 00:01:15,683
+The item table has its own compact spacing control. Save the layout for future documents.
+
+16
+00:01:17,043 --> 00:01:22,544
+Preview invoices, quotations, packing slips, and delivery orders from the order screen.
+
+17
+00:01:22,544 --> 00:01:27,310
+Packing slips and delivery orders keep quantities without monetary values.
+
+18
+00:01:27,310 --> 00:01:31,723
+Your assigned document number is separate from the WooCommerce order reference.
+
+19
+00:01:34,223 --> 00:01:38,407
+Use the paired Preview and Download controls for each document.
+
+20
+00:01:38,407 --> 00:01:44,400
+Credit notes describe existing WooCommerce refunds; they do not create a refund.
+
+21
+00:01:44,400 --> 00:01:51,623
+Payments continue through your installed WooCommerce gateway. Exporting a PDF does not charge the customer.

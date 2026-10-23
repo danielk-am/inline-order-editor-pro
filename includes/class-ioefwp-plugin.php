@@ -12,8 +12,23 @@ defined( 'ABSPATH' ) || exit;
  */
 final class IOEFWP_Plugin {
 
+	/** Explain the missing separately distributed dependency without loading Pro features. */
+	public static function check_dependencies() {
+		if ( ! class_exists( 'IOEFW_Orders' ) || ! class_exists( 'IOEFW_Terms' ) || ! class_exists( 'IOEFW_Ajax' ) ) {
+			add_action( 'admin_notices', array( __CLASS__, 'dependency_notice' ) );
+		}
+	}
+
+	/** Show plugin administrators how to restore the required Free plugin. */
+	public static function dependency_notice() {
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+		echo '<div class="notice notice-error"><p>' . esc_html__( 'Alkamy Order Editor Pro requires the Free Alkamy Order Editor for WooCommerce plugin. Install and activate Free to use Pro features.', 'inline-order-editor-pro' ) . ' <a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">' . esc_html__( 'Manage plugins', 'inline-order-editor-pro' ) . '</a></p></div>';
+	}
+
 	/**
-	 * Hooks. Runs when Inline Order Editor has loaded.
+	 * Hooks. Runs when Alkamy Order Editor has loaded.
 	 */
 	public static function init() {
 		if ( ! class_exists( 'IOEFW_Orders' ) || ! class_exists( 'IOEFW_Terms' ) || ! class_exists( 'IOEFW_Ajax' ) ) {

@@ -1,4 +1,67 @@
-*** Inline Order Editor Pro Changelog ***
+*** Alkamy Order Editor Pro for WooCommerce Changelog ***
+
+2026-10-23 - version 1.3.6
+* Make Pro free and open source under GPL-2.0-or-later; Pro means additional features.
+* Remove commercial activation and updater client without changing saved options or feature availability.
+* Document manual ZIP updates and current Free dependency.
+
+2026-10-15 - version 1.3.5
+* Add optional direct-purchase license activation and updates through Alkamy; installed features remain available after expiry.
+* Reject attachment stream wrappers before file inspection in document logos and images; share logo validation with PDF rendering.
+* Harden inline settings JSON and document narrowly verified QIT output false positives.
+* Add regression checks for malicious settings, block attributes, file wrappers and valid document controls.
+
+2026-10-15 - version 1.3.4
+* Show Singapore-specific InvoiceNow fields only for Singapore base stores; retain saved identifiers when fields are hidden.
+* Dev - Make every Plugin Check warning fail the quality gate.
+* Dev - Record WooCommerce 11.2 compatibility after integration checks.
+* Fix - Handle the separately distributed Free dependency with a permission-checked administrator notice.
+
+2026-10-15 - version 1.3.3-alpha
+* Tweak - Rename the product to Alkamy Order Editor Pro for WooCommerce.
+* Dev - Preserve plugin paths, text domains, hooks and stored identifiers for compatibility.
+
+2026-10-15 - version 1.3.2-alpha
+* New - Automatically assign missing document numbers when saving the order or sections.
+* Fix - Rental date/time edits use the store timezone without a separate timezone field.
+* Dev - Add real WooCommerce PHPUnit suites and CI quality/package gates.
+
+2026-10-15 - version 1.3.1-alpha
+* Fix - Align document-number and preview settings fields in matching rows.
+
+2026-10-15 - version 1.3.0-alpha
+* New - Automatic invoice PDF attachments for selected WooCommerce customer emails.
+* New - Private immutable archives, monthly invoice numbering and authenticated customer downloads.
+* New - Preserve historical WPC invoice numbers, original PDF files and custom product terms.
+* Fix - Issued and reserved invoice numbers cannot be changed or reused.
+
+2026-10-15 - version 1.2.3-alpha
+* Fix - Customer links appear in a row beneath the customer dropdown.
+* New - Editable fulfilment details with consistent inline field styling.
+
+2026-10-15 - version 1.2.2-alpha
+* New - Separate assigned invoice, quotation, delivery order and packing slip numbers.
+* Fix - Use the WordPress Invoicing mode switch with spacing and Settings beneath it.
+* Fix - Unnumbered exports are drafts; WooCommerce order references remain separate.
+* New - Duplicate number checks and assigned invoice references on refund credit notes.
+
+2026-10-15 - version 1.2.1-alpha
+* Fix - Shared logo and company details are visible together in document settings, with store defaults.
+* New - Compact document spacing and item-table spacing controls.
+* New - Text, company, signature and no-footer choices with per-layout overrides.
+
+2026-10-15 - version 1.2.0-alpha
+* Local PDF previews and exports, paid orders, discounts and existing refund credit notes.
+* Editable Folio block templates, reusable patterns and shared document branding.
+* Per-order layout selection and a narrower sidebar.
+
+2026-10-14 - version 1.1.0-alpha
+* New - Local alpha bundles the Alkamy invoicing document workspace, preserving existing storage keys.
+* Fix - Skip bundled invoicing when standalone Alkamy classes already own document handlers.
+* Note - Service deployment, paid-order invoices and negative discount support remain release blockers.
+
+2026-10-07 - version 1.0.3
+* Fix - The Add discount form now opens on its own line under the order's totals, so the order's buttons stay on one line.
 
 2026-10-07 - version 1.0.2
 * Fix - Text is now trimmed the same way on every PHP version, ahead of a change to PHP's defaults in 8.6.

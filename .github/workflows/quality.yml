@@ -1,0 +1,144 @@
+name: Plugin quality
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '7.4'
+            wp: '6.8'
+            woo: '10.0.0'
+            hpos: 'no'
+          - php: '8.3'
+            wp: 'latest'
+            woo: 'latest'
+            hpos: 'yes'
+          - php: '8.4'
+            wp: 'latest'
+            woo: 'latest'
+            hpos: 'no'
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: wordpress
+          MYSQL_DATABASE: wordpress
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: plugin
+      - name: Checkout free dependency
+        uses: actions/checkout@v4
+        with:
+          repository: danielk-am/inline-order-editor-for-woocommerce
+          path: free
+          token: ${{ secrets.CORE_REPO_TOKEN || github.token }}
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mysqli, mbstring, dom, zip, gd
+          tools: wp-cli, phpunit:9.6
+          coverage: xdebug
+      - name: Lint and exact package checks
+        working-directory: plugin
+        run: bash bin/ci-quality.sh
+      - name: Build and verify Marketplace distribution
+        working-directory: plugin
+        run: bash bin/build-marketplace.sh
+      - name: Standalone regression tests
+        if: matrix.php != '7.4'
+        working-directory: plugin
+        run: bash bin/ci-regressions.sh
+      - name: Build free dependency
+        run: bash free/bin/build.sh --zip
+      - name: Install disposable WordPress and dependencies
+        env:
+          WP_VERSION: ${{ matrix.wp }}
+          WOO_VERSION: ${{ matrix.woo }}
+        run: |
+          mkdir wp
+          wp core download --path=wp --version="$WP_VERSION"
+          wp config create --path=wp --dbname=wordpress --dbuser=root --dbpass=wordpress --dbhost=127.0.0.1:3306
+          wp config set DISABLE_WP_CRON true --raw --path=wp
+          wp config set WP_DEBUG true --raw --path=wp
+          wp config set WP_DEBUG_LOG true --raw --path=wp
+          wp config set WP_DEBUG_DISPLAY false --raw --path=wp
+          wp core install --path=wp --url=http://127.0.0.1:8899 --title=CI --admin_user=admin --admin_password=ci-disposable-only --admin_email=ci@example.invalid --skip-email
+          wp plugin install woocommerce --version="$WOO_VERSION" --activate --path=wp
+          wp plugin install free/build/inline-order-editor-for-woocommerce.zip --activate --path=wp
+          wp plugin install plugin/build/marketplace/inline-order-editor-pro.zip --activate --path=wp
+          wp plugin install plugin-check --activate --path=wp
+          wp eval 'if (class_exists("Alkamy_Direct_Distribution", false)) { throw new RuntimeException("Marketplace package loaded direct-distribution promotions"); } if (!class_exists("Alkamy_Admin", false)) { throw new RuntimeException("Invoicing module failed to load"); }' --path=wp
+          wp option update woocommerce_custom_orders_table_enabled '${{ matrix.hpos }}' --path=wp
+          wp plugin list --path=wp --format=json > plugin/build/quality/activation.json
+          wp core version --path=wp > plugin/build/quality/wordpress-version.txt
+          wp plugin get woocommerce --field=version --path=wp > plugin/build/quality/woocommerce-version.txt
+          wp plugin get plugin-check --field=version --path=wp > plugin/build/quality/plugin-check-version.txt
+      - name: Plugin Check on installed exact Marketplace package
+        run: |
+          php -S 127.0.0.1:8899 -t wp > plugin/build/quality/pcp-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          set +e
+          wp plugin check inline-order-editor-pro --path=wp --require=wp/wp-content/plugins/plugin-check/cli.php --format=json > plugin/build/quality/plugin-check.json 2> plugin/build/quality/plugin-check.stderr
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then cat plugin/build/quality/plugin-check.stderr; exit "$status"; fi
+          php plugin/bin/ci-plugin-check.php plugin/build/quality/plugin-check.json inline-order-editor-pro
+          # Any invocation failure without a report is a failure, never a skipped pass.
+          if [ "$status" -ne 0 ] && [ ! -s plugin/build/quality/plugin-check.json ]; then exit "$status"; fi
+      - name: PHPUnit integration tests
+        env:
+          IOEFW_TEST_WP_ROOT: ${{ github.workspace }}/wp
+          IOEFW_TEST_ALLOW_MUTATIONS: '1'
+          IOEFW_TEST_EXPECT_HPOS: ${{ matrix.hpos }}
+        working-directory: plugin
+        run: bash bin/run-phpunit.sh --log-junit build/quality/phpunit.xml --coverage-clover build/quality/coverage.xml
+      - uses: actions/setup-node@v4
+        if: matrix.php == '8.3'
+        with:
+          node-version: '22'
+      - name: Chromium order screen smoke
+        if: matrix.php == '8.3'
+        env:
+          IOEFW_TEST_EXPECT_HPOS: ${{ matrix.hpos }}
+          CI_PLUGIN_SLUG: inline-order-editor-pro
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ci-browser" playwright
+          "$RUNNER_TEMP/ci-browser/node_modules/.bin/playwright" install --with-deps chromium
+          CI_ORDER_ID=$(wp eval 'update_user_meta(1, "_alkamy_invoice_mode", "1"); $o=wc_create_order(); $o->set_billing_first_name("CI"); $o->set_billing_last_name("Fixture"); $o->save(); echo $o->get_id();' --path=wp)
+          export CI_ORDER_ID
+          php -S 127.0.0.1:8899 -t wp > plugin/build/quality/server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          for i in $(seq 1 30); do if curl -fsS http://127.0.0.1:8899/wp-login.php > /dev/null; then break; fi; sleep 1; done
+          cd plugin
+          PLAYWRIGHT_PACKAGE="$RUNNER_TEMP/ci-browser/node_modules/playwright" node bin/ci-browser.mjs
+      - name: Preserve runtime log
+        if: always()
+        run: |
+          if [ -f wp/wp-content/debug.log ]; then cp wp/wp-content/debug.log plugin/build/quality/debug.log; fi
+      - name: Retain test and package evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: inline-order-editor-pro-php${{ matrix.php }}-hpos${{ matrix.hpos }}
+          path: |
+            plugin/build/quality/
+            plugin/build/*.zip
+            plugin/build/marketplace/*.zip
+          if-no-files-found: error

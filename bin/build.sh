@@ -8,7 +8,7 @@ SLUG="inline-order-editor-pro"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 mkdir -p "$ROOT/build/$SLUG"
-rsync -a --delete --exclude-from="$ROOT/.distignore" "$ROOT/" "$ROOT/build/$SLUG/"
+rsync -a --delete --delete-excluded --exclude-from="$ROOT/.distignore" "$ROOT/" "$ROOT/build/$SLUG/"
 
 if [ "${1:-}" = "--zip" ]; then
 	rm -f "$ROOT/build/$SLUG.zip"

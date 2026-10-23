@@ -1,0 +1,63 @@
+{
+  "base": "http://localhost:8895",
+  "order": 20,
+  "checks": [
+    "Pro Markdown section edits refresh the actual paper preview",
+    "Pro added/reordered sections saved through Update order",
+    "Pro published PDF layout opens in the real block editor",
+    "HTTP invoice export returned a valid PDF attachment",
+    "HTTP quotation export returned a valid PDF attachment",
+    "HTTP packing_slip export returned a valid PDF attachment",
+    "HTTP delivery_order export returned a valid PDF attachment",
+    "Existing-refund credit note returned a valid PDF"
+  ],
+  "screenshots": [
+    {
+      "kind": "pro",
+      "path": "design/demo/screenshots/pro-01-invoicing-workspace.png"
+    },
+    {
+      "kind": "pro",
+      "path": "design/demo/screenshots/pro-02-sections.png"
+    },
+    {
+      "kind": "pro",
+      "path": "design/demo/screenshots/pro-03-layout-editor.png"
+    },
+    {
+      "kind": "pro",
+      "path": "design/demo/screenshots/pro-05-document-exports.png"
+    }
+  ],
+  "videos": [
+    {
+      "kind": "pro",
+      "path": "design/demo/videos/pro-walkthrough.webm",
+      "bytes": 15130164,
+      "marks": [
+        {
+          "seconds": 13.2,
+          "text": "Switch the same order to an invoicing workspace"
+        },
+        {
+          "seconds": 40,
+          "text": "Edit document sections and see the paper preview"
+        },
+        {
+          "seconds": 90.5,
+          "text": "Add another section and reorder it with its handle"
+        },
+        {
+          "seconds": 126.5,
+          "text": "Choose an editable document layout"
+        },
+        {
+          "seconds": 178.3,
+          "text": "Preview and export documents from the order"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "distribution": "Marketplace Pro, optional promotion module omitted"
+}

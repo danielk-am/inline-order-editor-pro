@@ -1,0 +1,17 @@
+# Third-party notices
+
+Alkamy Order Editor Pro's own code is offered under GPL-2.0-or-later; see `LICENSE`. Its bundled components retain their respective licenses, copyright notices and source. The LGPL-3.0-or-later SVG library permits this combined distribution using the GPLv3 option allowed by GPL-2.0-or-later. This does not relicense the independent upstream components. The full GPLv3 text is supplied at `LICENSES/GPL-3.0.txt`, alongside the upstream LGPLv3 text below.
+
+| Component | Version | License text in this package |
+| --- | --- | --- |
+| dompdf/dompdf | 3.1.6 | `modules/invoicing/vendor/dompdf/dompdf/LICENSE.LGPL` (LGPL-2.1) |
+| dompdf/php-font-lib | 1.0.2 | `modules/invoicing/vendor/dompdf/php-font-lib/LICENSE` (LGPL-2.1) |
+| dompdf/php-svg-lib | 1.0.2 | `modules/invoicing/vendor/dompdf/php-svg-lib/LICENSE` (LGPL-3.0-or-later) |
+| masterminds/html5 | 2.11.0 | `modules/invoicing/vendor/masterminds/html5/LICENSE.txt` (MIT) |
+| sabberworm/php-css-parser | 9.5.0 | `modules/invoicing/vendor/sabberworm/php-css-parser/LICENSE` (MIT) |
+
+The readable LGPL source is included. The PHP namespaces were mechanically prefixed to `AlkamyPdfVendor`; dependency versions, upstream links and transformation details are recorded in `modules/invoicing/vendor/PROVENANCE.md`. This transformation does not remove upstream rights. No build-only scoping tools ship in the plugin ZIP.
+
+Dompdf's DejaVu font family carries the Bitstream Vera and Arev notices in `LICENSES/DejaVu-Fonts.txt`; DejaVu's changes are public domain. The notice is reproduced from the DejaVu 2.37 upstream license at https://github.com/dejavu-fonts/dejavu-fonts/blob/version_2_37/LICENSE. Adobe's Core 14 AFM permission and conditions remain at `modules/invoicing/vendor/dompdf/dompdf/lib/fonts/mustRead.html`, with copyright notices retained in the metric files. The ICC profile's separate license remains at `modules/invoicing/vendor/dompdf/dompdf/lib/res/sRGB2014.icc.LICENSE`.
+
+Full GPLv3 text source: https://www.gnu.org/licenses/gpl-3.0.txt (retrieved 2026-10-23). These notices describe the included licenses, not an assurance of compatibility with every external plugin or service.

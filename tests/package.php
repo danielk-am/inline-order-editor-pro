@@ -1,7 +1,9 @@
 <?php
 /**
  * Checks a built package against what the WooCommerce.com Marketplace reads when a ZIP is uploaded:
- * a changelog.txt in its format, whose newest entry carries the plugin's version. Not shipped in the release ZIP.
+ * a changelog.txt in its format, whose newest entry carries the plugin's version.
+ * Local prerelease suffixes are accepted here; this is not a Marketplace acceptance result.
+ * Not shipped in the release ZIP.
  *
  * Run: php tests/package.php build/<plugin-folder>
  *
@@ -68,7 +70,7 @@ foreach ( array_slice( $ioefw_lines, 1 ) as $ioefw_line ) {
 		continue;
 	}
 
-	if ( preg_match( '/^(\d{4})-(\d{2})-(\d{2}) - version (\d+\.\d+\.\d+)$/', $ioefw_line, $ioefw_found ) && checkdate( (int) $ioefw_found[2], (int) $ioefw_found[3], (int) $ioefw_found[1] ) ) {
+	if ( preg_match( '/^(\d{4})-(\d{2})-(\d{2}) - version (\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?)$/', $ioefw_line, $ioefw_found ) && checkdate( (int) $ioefw_found[2], (int) $ioefw_found[3], (int) $ioefw_found[1] ) ) {
 		$ioefw_versions[] = $ioefw_found[4];
 		$ioefw_dates[]    = $ioefw_found[1] . $ioefw_found[2] . $ioefw_found[3];
 	} elseif ( ! $ioefw_versions || ! preg_match( '/^( {4})?\* \S/', $ioefw_line ) ) {
@@ -89,6 +91,10 @@ foreach ( $ioefw_versions as $ioefw_index => $ioefw_one ) {
 }
 
 ioefw_package_check( $ioefw_ordered, 'Versions run from newest to oldest, and no entry is dated before the one below it.' );
+
+foreach ( array( 'LICENSE', 'LICENSES/GPL-3.0.txt', 'LICENSES/DejaVu-Fonts.txt', 'THIRD-PARTY-NOTICES.txt', 'modules/invoicing/vendor/dompdf/php-svg-lib/LICENSE', 'modules/invoicing/vendor/dompdf/dompdf/lib/fonts/mustRead.html', 'modules/invoicing/vendor/dompdf/dompdf/lib/res/sRGB2014.icc.LICENSE' ) as $notice ) {
+ ioefw_package_check( is_file( $ioefw_dir . '/' . $notice ) && filesize( $ioefw_dir . '/' . $notice ) > 100, 'Required distribution license/notice ships: ' . $notice );
+}
 
 echo ( $ioefw_failed ? $ioefw_failed . ' failed.' : 'All passed.' ) . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- A command-line script.
 

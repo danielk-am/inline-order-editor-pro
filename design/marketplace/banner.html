@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Order Editor Pro for WooCommerce</title>
+<!--
+	Source for the WordPress.org directory banner. Render it at 1544x500, and again with
+	?scale=0.5 at 772x250, so both sizes come from this one layout:
+
+	python3 render_page.py design/banner.html .wordpress-org/banner-1544x500.png --width 1544 --height 500
+	python3 render_page.py "design/banner.html?scale=0.5" .wordpress-org/banner-772x250.png --width 772 --height 250
+
+	The mock on the right repeats the amounts in .wordpress-org/screenshot-1.png.
+-->
+<style>
+	/* Alkamy Holdings brand, from the canonical logo asset README. */
+	:root {
+		--surface: #FFFFFF;
+		--backdrop: #FAF8F3;
+		--ink: #16161A;
+		--muted: #5E5A52;
+		--brand: #9A6F1E;
+		--border: #E5DED2;
+		--font: system-ui, sans-serif;
+	}
+
+	* { box-sizing: border-box; }
+
+	html, body { margin: 0; }
+
+	body {
+		position: relative;
+		width: 1544px;
+		height: 500px;
+		overflow: hidden;
+		background: var(--backdrop);
+		color: var(--ink);
+		font-family: var(--font);
+	}
+
+	.copy {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 96px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		width: 760px;
+	}
+
+	.copy img {
+		width: 260px;
+		height: auto;
+		margin-bottom: 32px;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: 72px;
+		font-weight: 700;
+		letter-spacing: -0.03em;
+		line-height: 1.05;
+	}
+
+	.copy__for {
+		margin: 14px 0 0;
+		color: var(--brand);
+		font-size: 34px;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+
+	.copy__line {
+		max-width: 660px;
+		margin: 28px 0 0;
+		color: var(--muted);
+		font-size: 28px;
+		line-height: 1.3;
+	}
+
+
+
+.canvas{position:relative;width:1544px;height:500px}
+.screens{position:absolute;left:810px;top:20px;width:660px;height:460px}
+.screen{margin:0;position:absolute;overflow:hidden;background:#fff;border:1px solid var(--border);border-radius:12px;box-shadow:0 12px 30px #16161a18}
+.screen figcaption{height:28px;padding:6px 12px;border-bottom:1px solid var(--border);font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap}
+.screen-image{position:relative;overflow:hidden;height:calc(100% - 28px)}
+.screen img{position:relative;display:block;width:100%;height:auto}
+.screen-details{left:45px;top:5px;width:400px;height:300px;transform:rotate(-10deg);z-index:1}
+.screen-details img{top:-160px}
+.screen-items{left:205px;top:18px;width:400px;height:300px;transform:rotate(8deg);z-index:2}
+.screen-layout{left:15px;top:110px;width:550px;height:330px;z-index:3}
+.screen-layout img{width:100%;height:auto}
+.screen-invoice{left:475px;top:185px;width:170px;height:255px;transform:rotate(4deg);z-index:4}
+.screen-invoice img{height:100%;object-fit:contain}
+.screen-invoice figcaption{font-size:10px;padding-left:8px}
+.gallery{width:1792px;height:1100px}
+.gallery .canvas{width:1792px;height:1100px}
+.gallery .copy{left:100px;width:740px}
+.gallery .copy img{width:300px;margin-bottom:48px}
+.gallery h1{font-size:76px;max-width:700px}
+.gallery .copy__for{font-size:42px}
+.gallery .copy__line{font-size:34px;max-width:650px;margin-top:40px}
+.gallery .screens{left:790px;top:120px;width:920px;height:880px}
+.gallery .screen{border-radius:16px}
+.gallery .screen figcaption{height:40px;padding:10px 16px;font-size:17px}
+.gallery .screen-image{height:calc(100% - 40px)}
+.gallery .screen-details{left:60px;top:50px;width:570px;height:500px}
+.gallery .screen-details img{top:-225px}
+.gallery .screen-items{left:295px;top:75px;width:570px;height:500px}
+.gallery .screen-layout{left:10px;top:280px;width:790px;height:555px}
+.gallery .screen-invoice{left:640px;top:465px;width:245px;height:365px}
+.gallery .screen-invoice figcaption{font-size:12px;padding-left:12px}
+</style>
+</head>
+<body><main class="canvas">
+	<div class="copy">
+		<img src="alkamy-logo.svg" alt="">
+		<h1>Order Editor Pro</h1>
+		<p class="copy__for">for WooCommerce</p>
+		<p class="copy__line">Edit orders and design PDFs with blocks.</p>
+	</div>
+
+<div class="screens" aria-label="Four actual product views">
+ <figure class="screen screen-details"><figcaption>Billing &amp; shipping</figcaption><div class="screen-image"><img src="captures/order-details.png" alt="Stacked editable billing and shipping fields in invoicing mode"></div></figure>
+ <figure class="screen screen-items"><figcaption>Inline item editing</figcaption><div class="screen-image"><img src="captures/item-editing.png" alt="Editable order lines and add-item row"></div></figure>
+ <figure class="screen screen-layout"><figcaption>Block-editable PDF layouts</figcaption><div class="screen-image"><img src="../demo/screenshots/pro-03-layout-editor.png" alt="WordPress block editor for reusable PDF document layouts"></div></figure>
+ <figure class="screen screen-invoice"><figcaption>PDF documents</figcaption><div class="screen-image"><img src="../demo/screenshots/pro-04-pdf-preview.png" alt="Actual invoice exported from the demo store"></div></figure>
+</div>
+
+</main>
+	<script>
+		// ?scale=0.5 renders the 772x250 banner from the same layout.
+		if(new URLSearchParams(location.search).get('format')==='gallery')document.body.classList.add('gallery');
+		const scale = new URLSearchParams( location.search ).get( 'scale' );
+		if ( scale ) {
+			document.documentElement.style.zoom = scale;
+		}
+	</script>
+</body>
+</html>

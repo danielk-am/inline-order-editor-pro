@@ -9,7 +9,10 @@
  * writes design/gallery/gallery-1.png to gallery-7.png at 1280 x 860. The Marketplace asks for
  * 896 x 550 or larger. The store is changed along the way, so start it again before another run.
  *
- * Needs Node 22 or later and Google Chrome. Set CHROME_BIN or IOEFW_STORE to override the defaults.
+ * It also checks the layout of the open discount form, and stops if the form moves the order's buttons.
+ *
+ * Needs Node 22 or later and Google Chrome. Set CHROME_BIN or IOEFW_STORE to override the defaults, and
+ * IOEFW_OUT to write the images somewhere else, for a run that is only a check.
  */
 import { spawn } from 'node:child_process';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
@@ -21,7 +24,7 @@ const STORE = process.env.IOEFW_STORE || 'http://127.0.0.1:9414';
 const CHROME =
 	process.env.CHROME_BIN ||
 	'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-const OUT = join( dirname( fileURLToPath( import.meta.url ) ), 'gallery' );
+const OUT = process.env.IOEFW_OUT || join( dirname( fileURLToPath( import.meta.url ) ), 'gallery' );
 const PORT = 9336;
 const VIEWPORT = { width: 1280, height: 860 };
 
@@ -210,6 +213,9 @@ async function frame( selector, offset = 70 ) {
 }
 
 async function capture( number ) {
+	// An icon drawn from a font shows as an empty box until the font has arrived.
+	await inPage( () => document.fonts.ready.then( () => true ) );
+	await sleep( 200 );
 	const { data } = await send( 'Page.captureScreenshot', { format: 'png' } );
 	writeFileSync( join( OUT, `gallery-${ number }.png` ), Buffer.from( data, 'base64' ) );
 	console.log( `gallery-${ number }.png` );
@@ -304,10 +310,24 @@ try {
 	// 1. The Add discount form, filled in.
 	await messageGone();
 	await click( `${ ITEMS } .ioefwp-discount-open` );
-	await waitFor( 'the discount form', ( query ) => ! document.querySelector( query ).hidden, `${ ITEMS } .ioefwp-discount-form` );
+	await waitFor( 'the discount form', ( query ) => document.querySelector( query ).getClientRects().length > 0, `${ ITEMS } .ioefwp-discount-form` );
 	await type( '10%' );
 	await click( `${ ITEMS } .ioefwp-discount-label` );
 	await type( 'Regular customer' );
+
+	// The open form must leave WooCommerce's own buttons alone: all on one line, with the form above it.
+	const layout = await inPage( ( box ) => {
+		const place = ( query ) => document.querySelector( `${ box } ${ query }` ).getBoundingClientRect();
+		const first = place( '.add-line-item' );
+		const last = place( '.calculate-action' );
+		const form = place( '.ioefwp-discount-form' );
+		return { first: first.top, last: last.top, formBottom: form.bottom };
+	}, ITEMS );
+
+	if ( Math.abs( layout.first - layout.last ) > 3 || layout.formBottom > layout.first + 1 ) {
+		throw new Error( `The discount form moves the order's buttons: ${ JSON.stringify( layout ) }` );
+	}
+
 	await frame( ITEMS );
 	await capture( 1 );
 

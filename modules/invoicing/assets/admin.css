@@ -1,0 +1,148 @@
+.alkamy{max-width:1000px}.alkamy-card{background:#fff;border:1px solid #dcdcde;border-radius:6px;padding:20px;margin:18px 0}.alkamy label{display:block;margin:12px 0}.alkamy input:not([type=checkbox]):not([type=hidden]),.alkamy textarea,.alkamy select{display:block;width:100%;max-width:680px;margin-top:6px}.alkamy textarea{min-height:110px}.alkamy-section{border:1px solid #c3c4c7;padding:14px;border-radius:6px;margin:18px 0}.alkamy-visibility{display:flex;flex-wrap:wrap;gap:8px 20px}.alkamy-actions{display:flex;flex-wrap:wrap;gap:10px}.alkamy-section legend{font-weight:600}.alkamy .button{white-space:normal}.alkamy-card h2:first-child{margin-top:0}@media(max-width:600px){.alkamy-card{padding:12px}.alkamy-actions{display:grid}.alkamy-visibility{display:grid;gap:0}}
+/* Document editor on the left, embedded preview and export controls on the right. */
+.alkamy:has(.alkamy-columns){max-width:none}.alkamy-columns{display:grid;grid-template-columns:minmax(320px,1fr) minmax(360px,1fr);gap:24px;align-items:start}.alkamy-columns>.alkamy-card{margin-top:0}.alkamy-right>.alkamy-card:first-child{margin-top:0}.alkamy-preview-frame{display:block;width:100%;height:640px;border:1px solid #c3c4c7;background:#fff;margin-top:12px}.alkamy-preview-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.alkamy-preview-status{font-size:12px;color:#526B78}.alkamy-issued{border-top:1px solid #dcdcde;margin-top:18px;padding-top:8px}.alkamy-exports .button{min-height:32px}.alkamy-editor,.alkamy-preview,.alkamy-exports{max-width:none}.alkamy-order-screen #alkamy-sections .inside,.alkamy-order-screen #alkamy-preview .inside,.alkamy-order-screen #alkamy-export .inside{padding:12px}.alkamy-order-screen #alkamy-preview .alkamy-preview-frame{height:580px}.alkamy-visibility label{display:flex;align-items:center;gap:5px}.alkamy-visibility input[type=checkbox]{margin:0}
+@media(min-width:851px){.alkamy-order-screen #poststuff #post-body.columns-2{margin-right:340px}.alkamy-order-screen #post-body.columns-2 #postbox-container-1{width:320px;margin-right:-340px}.alkamy-order-screen #post-body.columns-2 #postbox-container-2{width:100%}}
+@media(max-width:1100px){.alkamy-columns{grid-template-columns:1fr}.alkamy-preview-frame{height:560px}}
+@media(max-width:600px){.alkamy-preview-controls{grid-template-columns:1fr}.alkamy-preview-frame{height:460px}}
+
+@media(min-width:1280px){.alkamy-order-screen #poststuff #post-body #postbox-container-1 #side-sortables{width:100%}}
+
+/* Keep native WooCommerce inputs and save handlers, with document-like editing. */
+#order_data.alkamy-inline-header .alkamy-inline-address>.address,
+#order_data.alkamy-inline-header .alkamy-inline-address h3>a.edit_address{display:none!important}
+#order_data.alkamy-inline-header .alkamy-inline-address>div.edit_address{display:block!important}
+#order_data.alkamy-inline-header input:not([type=checkbox]):not([type=hidden]),
+#order_data.alkamy-inline-header textarea,
+#order_data.alkamy-inline-header select,
+.alkamy-custom-fields input{border:1px solid transparent;background:transparent;box-shadow:none;border-radius:4px;padding:4px 6px}
+#order_data.alkamy-inline-header input:hover,#order_data.alkamy-inline-header textarea:hover,
+.alkamy-custom-fields input:hover{border-color:#c3c4c7;background:#f6f7f7}
+#order_data.alkamy-inline-header input:focus,#order_data.alkamy-inline-header textarea:focus,
+#order_data.alkamy-inline-header select:focus,.alkamy-custom-fields input:focus{border-color:#2563eb;outline:2px solid #2563eb;outline-offset:1px;background:#fff}
+#order_data.alkamy-inline-header .select2-selection{border-color:transparent;background:transparent}
+.alkamy-custom-fields{clear:both;padding-top:20px;border-top:1px solid #ddd;margin-top:20px}
+.alkamy-custom-field{display:grid;grid-template-columns:32px minmax(100px,1fr) minmax(140px,2fr) 32px;gap:8px;align-items:start;margin:8px 0}
+.alkamy-custom-field input{width:100%;min-width:0}.alkamy-custom-field button{min-height:32px}
+@media(max-width:600px){.alkamy-custom-field{grid-template-columns:32px minmax(0,1fr) minmax(0,1fr) 32px}}
+
+/* Stacked address tables: labels stay visible and editable values have a clear surface. */
+#order_data.alkamy-inline-header .order_data_column_container{display:block}
+#order_data.alkamy-inline-header .order_data_column{float:none;width:100%;padding:0;margin:0 0 22px}
+#order_data.alkamy-inline-header .order_data_column h3{margin:16px 0 10px;padding-top:14px;border-top:1px solid #e2e5e9}
+#order_data.alkamy-inline-header .order_data_column:first-child h3{border:0;padding-top:0}
+#order_data.alkamy-inline-header .order_data_column .form-field{float:none!important;width:100%!important;display:grid;grid-template-columns:145px minmax(0,1fr);align-items:start;gap:10px;margin:0 0 8px;padding:0;border-bottom:0;box-sizing:border-box}
+#order_data.alkamy-inline-header .order_data_column .form-field>label{margin:0;padding-top:8px;font-size:12px;line-height:18px;color:#526b78}
+#order_data.alkamy-inline-header .order_data_column .form-field input:not([type=checkbox]),
+#order_data.alkamy-inline-header .order_data_column .form-field textarea,
+#order_data.alkamy-inline-header .order_data_column .form-field select{width:100%;max-width:none;min-height:34px;margin:0;background:#f8f9fa;border:1px solid #e5e7eb;padding:6px 9px;border-radius:5px}
+#order_data.alkamy-inline-header .order_data_column .form-field input:hover,
+#order_data.alkamy-inline-header .order_data_column .form-field textarea:hover{background:#edf3ff;border-color:#a9c3f7}
+#order_data.alkamy-inline-header .order_data_column .form-field input:focus,
+#order_data.alkamy-inline-header .order_data_column .form-field textarea:focus{background:#fff}
+#order_data.alkamy-inline-header .select2-container{width:100%!important;min-width:0}
+#order_data.alkamy-inline-header .select2-selection{background:#f8f9fa;border:1px solid #e5e7eb;min-height:34px}
+#order_data.alkamy-inline-header .select2-selection:hover{background:#edf3ff}
+#order_data.alkamy-inline-header .alkamy-shipping-toggle{display:flex;align-items:center;gap:8px;padding:12px;background:#edf3ff;border-radius:5px;margin:8px 0 12px}
+#order_data.alkamy-inline-header .alkamy-shipping-toggle input{margin:0}
+#order_data.alkamy-inline-header .alkamy-same-shipping>div.edit_address{display:none!important}
+.alkamy-custom-fields input{background:#f8f9fa;border-color:#e5e7eb;min-height:34px}
+.alkamy-custom-fields input:hover{background:#edf3ff}
+@media(max-width:600px){#order_data.alkamy-inline-header .order_data_column .form-field{grid-template-columns:110px minmax(0,1fr)}}
+
+#order_data.alkamy-inline-header .alkamy-header-value{min-width:0}
+#order_data.alkamy-inline-header .form-field input.hour,#order_data.alkamy-inline-header .form-field input.minute{width:55px!important;display:inline-block}
+#order_data.alkamy-inline-header .form-field input.date-picker{width:140px!important;display:inline-block}
+#order_data.alkamy-inline-header .alkamy-custom-fields .alkamy-custom-field input{background:#f8f9fa;border:1px solid #e5e7eb;min-height:34px;padding:6px 9px}
+#order_data.alkamy-inline-header .alkamy-custom-fields .alkamy-custom-field input:hover{background:#edf3ff;border-color:#a9c3f7}
+#order_data.alkamy-inline-header .alkamy-custom-fields .alkamy-custom-field input:focus{background:#fff}
+
+#order_data .alkamy-mode-controls{clear:both;float:none;display:block;width:100%;margin:24px 0;padding:16px 0 0}
+#order_data .alkamy-mode-toggle{display:block;margin:0 0 12px;padding:0;background:transparent;border:0;font-weight:600}
+#order_data .alkamy-mode-toggle .components-toggle-control{margin:0}
+#order_data .alkamy-mode-toggle .components-toggle-control__label{font-weight:600}
+#order_data .alkamy-mode-status{display:block;font-size:12px}
+#order_data .alkamy-mode-status:empty{display:none}
+
+.alkamy-field-drag{display:flex;align-items:center;justify-content:center;width:32px;min-height:34px;border:1px solid transparent;border-radius:4px;background:transparent;color:#526b78;cursor:grab;touch-action:none;font-size:23px;line-height:1}
+.alkamy-field-drag:hover{background:#edf3ff;border-color:#a9c3f7}.alkamy-field-drag:focus-visible{outline:2px solid #2563eb;outline-offset:2px}.alkamy-field-dragging{background:#edf3ff;outline:1px dashed #a9c3f7;border-radius:5px}.alkamy-field-dragging .alkamy-field-drag{cursor:grabbing}
+
+#order_data .alkamy-order-links{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin:0;clear:both}
+#order_data .alkamy-order-links a{display:inline-flex;align-items:center;gap:4px;float:none;margin:0;font-size:13px;line-height:1.6;white-space:nowrap}
+
+/* Native selects need their own arrow and line height after the shared field reset. */
+#order_data.alkamy-inline-header .order_data_column .form-field select{appearance:none;height:36px;line-height:22px;padding:6px 32px 6px 9px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%23526b78' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;background-size:16px 16px}
+#order_data.alkamy-inline-header .order_data_column .form-field select:hover{background-color:#edf3ff;border-color:#a9c3f7}
+#order_data.alkamy-inline-header .order_data_column .form-field select:focus{background-color:#fff}
+#order_data.alkamy-inline-header .order_data_column .form-field textarea#excerpt{line-height:20px;min-height:174px;resize:vertical;box-sizing:border-box}
+
+.alkamy-terms-presets{margin:0 0 12px}.alkamy-terms-presets select{max-width:100%;margin:0 8px 8px 0}.alkamy-terms-presets label{display:block;margin-bottom:6px}.alkamy-invoicenow-details{margin:16px 0;padding:12px;background:#f8f9fa;border:1px solid #e5e7eb;border-radius:5px}.alkamy-invoicenow-details summary{cursor:pointer;font-weight:600}
+
+.alkamy-section .alkamy-section-preset,.alkamy-section select[data-field=position]{width:100%;max-width:none}.alkamy-position-map{display:grid;gap:4px;margin:14px 0;padding:10px;border:1px solid #e5e7eb;border-radius:5px;font-size:12px}.alkamy-position-map span{padding:5px 10px;border-radius:3px;color:#526b78;background:#f8f9fa}.alkamy-position-map .is-selected{background:#edf3ff;color:#153847;outline:1px solid #2563eb;font-weight:600}.alkamy-map-items{min-height:26px}.alkamy-invoicenow-details label{display:block;margin:12px 0}.alkamy-invoicenow-details input{display:block;width:100%;box-sizing:border-box;margin-top:6px}
+
+.alkamy .alkamy-paper-control[hidden]{display:none}
+
+/* InvoiceNow fields need visible surfaces outside the native address columns. */
+#order_data.alkamy-inline-header .alkamy-invoicenow-details input:not([type=hidden]){background:#fff;border:1px solid #cbd5e1;min-height:36px;padding:7px 10px;border-radius:5px;color:#153847}
+#order_data.alkamy-inline-header .alkamy-invoicenow-details input:hover{background:#edf3ff;border-color:#a9c3f7}
+.alkamy-invoicenow-details summary{display:flex;justify-content:space-between;align-items:center;gap:12px;list-style:none}
+.alkamy-invoicenow-details summary::-webkit-details-marker{display:none}
+.alkamy-invoicenow-details summary::after{content:'▸';flex:none}
+.alkamy-invoicenow-details[open] summary::after{content:'▾'}
+.alkamy-exports>.alkamy-actions{display:grid;grid-template-columns:1fr}
+.alkamy-exports>.alkamy-actions>.button{width:100%;box-sizing:border-box;text-align:center}
+.alkamy-section-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.alkamy-section-workspace>.alkamy-preview{position:sticky;top:50px;min-width:0}
+.alkamy-section-workspace .alkamy-preview-frame{height:620px}
+.alkamy-section-workspace .alkamy-preview-controls{grid-template-columns:1fr}
+@media(max-width:1400px){.alkamy-section-workspace{grid-template-columns:1fr}.alkamy-section-workspace>.alkamy-preview{position:static}}
+
+.alkamy-section{position:relative;padding-top:16px}
+.alkamy-section-drag{position:absolute;right:12px;top:-15px;background:white;border:1px solid #cbd5e1;border-radius:4px;width:32px;height:30px;font-size:23px;color:#526b78;cursor:grab;touch-action:none;line-height:1}
+.alkamy-section-drag:hover{background:#edf3ff}.alkamy-section-drag:focus-visible{outline:2px solid #2563eb;outline-offset:2px}
+.alkamy-section-placement{display:grid;grid-template-columns:minmax(0,1fr) 112px;align-items:start;gap:20px;border-bottom:1px solid #e5e7eb;padding-bottom:14px;margin-bottom:16px}
+.alkamy-section-placement>label{margin-top:0}
+.alkamy-section-placement .alkamy-position-map{width:112px;aspect-ratio:210/297;box-sizing:border-box;margin:0;padding:10px 8px;background:white;border:1px solid #cbd5e1;border-radius:1px;box-shadow:0 2px 5px #15384720;gap:4px;grid-template-rows:.6fr 1fr 1.8fr 1fr .8fr 1fr}
+.alkamy-section-placement .alkamy-position-map::before{content:'';display:block;background:linear-gradient(#9aa9b8 0 0) left top/42% 3px no-repeat,linear-gradient(#e2e8f0 0 0) left bottom/70% 3px no-repeat}
+.alkamy-section-placement .alkamy-position-map span{padding:2px 3px;font-size:7px;line-height:1.2;display:flex;align-items:center;justify-content:center;text-align:center;border:1px solid #e2e8f0;min-height:0;border-radius:1px}
+.alkamy-section-placement .alkamy-position-map .alkamy-map-items{background:repeating-linear-gradient(to bottom,#f8f9fa 0,#f8f9fa 7px,#e2e8f0 7px,#e2e8f0 8px)}
+.alkamy-section-placement .alkamy-position-map .is-selected{background:#edf3ff;border-color:#2563eb;outline:0;color:#153847}
+@media(max-width:480px){.alkamy-section-placement{grid-template-columns:minmax(0,1fr) 90px;gap:12px}.alkamy-section-placement .alkamy-position-map{width:90px}}
+
+.alkamy .alkamy-section-accordion{padding:0;border:1px solid #cbd5e1;border-radius:6px;overflow:visible;margin:14px 0;background:white}
+.alkamy-section-accordion>summary{display:flex;align-items:center;gap:10px;padding:12px 14px;list-style:none;cursor:pointer;font-weight:600;background:#f8f9fa;border-radius:6px}
+.alkamy-section-accordion>summary::-webkit-details-marker{display:none}
+.alkamy-section-accordion>summary::after{content:'▸';margin-left:auto}.alkamy-section-accordion[open]>summary::after{content:'▾'}
+.alkamy-section-accordion .alkamy-section-drag{position:static;flex:0 0 30px;border-color:transparent;background:transparent}
+.alkamy-section-content{padding:4px 16px 16px}
+.alkamy .alkamy-section-content input[data-field=heading]{width:100%;max-width:none;min-height:40px;box-sizing:border-box;padding:8px 10px;background:#f8f9fa;border:1px solid #cbd5e1;border-radius:5px;font-size:14px}
+.alkamy .alkamy-section-content textarea{width:100%;max-width:none;min-height:174px;box-sizing:border-box;padding:10px;background:#f8f9fa;border:1px solid #cbd5e1;border-radius:5px;resize:vertical}
+.alkamy-section-content input:hover,.alkamy-section-content textarea:hover{background:#edf3ff}
+
+/* Give both disclosure controls a clear, consistently sized affordance. */
+.alkamy-invoicenow-details summary::after,.alkamy-section-accordion>summary::after{display:flex;align-items:center;justify-content:center;flex:0 0 28px;width:28px;height:28px;font-size:24px;line-height:1;color:#526b78}
+
+/* Draw chevrons at a fixed size; text triangle glyphs vary across fonts. */
+.alkamy-invoicenow-details summary::after,.alkamy-section-accordion>summary::after{content:'';display:block;flex:0 0 11px;width:11px;height:11px;box-sizing:border-box;border-right:2px solid #526b78;border-bottom:2px solid #526b78;transform:rotate(-45deg);margin-right:8px;margin-top:0}
+.alkamy-invoicenow-details[open] summary::after,.alkamy-section-accordion[open]>summary::after{content:'';transform:rotate(45deg);margin-top:-6px}
+
+.alkamy-provider-actions{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin:16px 0}
+.alkamy-custom-field .alkamy-field-provider{grid-column:2 / 4;display:flex;align-items:center;gap:7px;font-size:12px;line-height:1.5;margin:0 0 7px}
+#order_data.alkamy-inline-header .alkamy-custom-field .alkamy-field-provider input[type=checkbox]{width:16px;height:16px;min-height:16px;padding:0;background:#fff;flex:none;margin:0}
+#order_data.alkamy-inline-header .alkamy-custom-field .alkamy-field-provider input[type=checkbox]:checked{background:#2563eb;border-color:#2563eb}
+
+.alkamy-design-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}.alkamy-design-columns>div{position:sticky;top:45px}.alkamy-design-columns input,.alkamy-design-columns select,.alkamy-design-columns textarea{max-width:none!important}@media(max-width:1000px){.alkamy-design-columns{grid-template-columns:1fr}.alkamy-design-columns>div{position:static}}
+
+.alkamy-document-numbers{border:0;margin:0 0 18px;padding:0 0 16px;border-bottom:1px solid #dcdcde}.alkamy-document-numbers legend{font-weight:600;margin-bottom:10px}.alkamy-document-numbers label{display:block;margin:0 0 10px}.alkamy-document-numbers input{display:block;width:100%;margin-top:4px;background:#f7f8fa}.alkamy-document-numbers .description{margin:8px 0 0}
+
+/* Keep customer actions beneath their value, outside the narrow field label. */
+#order_data.alkamy-inline-header .alkamy-customer-links{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:8px}
+#order_data.alkamy-inline-header .alkamy-customer-links a{float:none;display:inline-block;margin:0;white-space:nowrap;font-size:12px;line-height:1.6}
+
+.alkamy-document-export-row{min-width:0}.alkamy-document-export-row>strong{display:block;margin:0 0 6px;font-size:12px}.alkamy-document-export-buttons{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}.alkamy-document-export-buttons .button{width:100%;box-sizing:border-box;text-align:center}
+
+/* Matching field rows across the document-number and preview columns. */
+.alkamy-section-workspace .alkamy-document-numbers legend,.alkamy-section-workspace .alkamy-preview-heading{font-size:13px;font-weight:600;line-height:20px;margin:0 0 10px;padding:0}
+.alkamy-section-workspace .alkamy-document-numbers label,.alkamy-section-workspace .alkamy-preview-controls label{display:block;font-size:13px;line-height:20px;margin:0 0 12px}
+.alkamy-section-workspace .alkamy-preview-controls{gap:0}
+.alkamy-section-workspace .alkamy-document-numbers input,.alkamy-section-workspace .alkamy-preview-controls select{box-sizing:border-box;width:100%;max-width:none;height:36px;min-height:36px;line-height:20px;margin:6px 0 0;padding:6px 8px;border:1px solid #c3c4c7;border-radius:4px;background-color:#f8f9fa}
+.alkamy-section-workspace .alkamy-preview-controls select{padding-right:28px}

@@ -169,6 +169,20 @@ $ioefwp_group(
 		$order = IOEFW_Orders::add_custom_item( $ioefwp_fresh( $order ), array( 'name' => 'Gift wrap', 'price' => '20' ) );
 		$check( 'The order starts at 100.', $ioefwp_near( $order->get_total(), 100 ) );
 
+		// Where the screen gets its button and its form: the button among the order's buttons, the form under the totals.
+		$drawn = static function ( WC_Order $shown ): array {
+			ob_start();
+			do_action( 'woocommerce_order_item_add_action_buttons', $shown );
+			$buttons = (string) ob_get_clean();
+			ob_start();
+			do_action( 'woocommerce_admin_order_totals_after_total', $shown->get_id() );
+
+			return array( $buttons, (string) ob_get_clean() );
+		};
+		list( $buttons, $totals ) = $drawn( $order );
+		$check( 'The Add discount button is among the order\'s buttons, and the form is not.', false !== strpos( $buttons, 'ioefwp-discount-open' ) && false === strpos( $buttons, 'ioefwp-discount-form' ) );
+		$check( 'The form is a hidden row of its own under the totals.', 1 === preg_match( '/<tr class="ioefwp-discount-row" hidden>.*ioefwp-discount-amount.*ioefwp-discount-label.*ioefwp-discount-apply.*ioefwp-discount-cancel.*<\/tr>/s', $totals ) );
+
 		$order = IOEFWP_Discount::add( $order, '10', 'Loyal customer' );
 		$fees  = $order instanceof WC_Order ? array_values( $order->get_fees() ) : array();
 		$check( 'A discount of 10 is a fee line below zero, named as typed.', 1 === count( $fees ) && 'Loyal customer' === $fees[0]->get_name() && $ioefwp_near( $fees[0]->get_total(), -10 ) );
@@ -202,6 +216,8 @@ $ioefwp_group(
 		$paid->set_status( 'processing' );
 		$paid->save();
 		$check( 'A paid order cannot be discounted.', is_wp_error( IOEFWP_Discount::add( $ioefwp_fresh( $paid ), '5' ) ) );
+		// Other plugins print on the same hooks, so look for the add-on's own markup only.
+		$check( 'A paid order is offered neither the button nor the form.', false === strpos( implode( '', $drawn( $ioefwp_fresh( $paid ) ) ), 'ioefwp-discount' ) );
 
 		// Tax added on top.
 		$ioefwp_option( 'woocommerce_calc_taxes', 'yes' );
@@ -378,6 +394,56 @@ $ioefwp_group(
 		$check( 'uninstall.php removes the add-on\'s one setting.', false !== strpos( $uninstall, "'" . IOEFWP_Saved_Terms::OPTION . "'" ) );
 	}
 );
+
+// Integration checks protect real WooCommerce data rather than mirrored test getters.
+$ioefwp_group(
+ 'Local document exports',
+ static function ( callable $check ) use ( $ioefwp_order, &$ioefwp_made ): void {
+  $check( 'Local renderer and block templates are loaded.', Alkamy_Local_Pdf::available() && class_exists( 'Alkamy_Layout_Editor' ) );
+  $order = $ioefwp_order();$item = new WC_Order_Item_Product();$item->set_name( 'PDF test display' );$item->set_quantity( 2 );$item->set_subtotal( 100 );$item->set_total( 100 );$order->add_item( $item );
+  $discount = new WC_Order_Item_Fee();$discount->set_name( 'Pro discount' );$discount->set_total( -10 );$order->add_item( $discount );$order->set_total( 90 );$order->save();
+  $before = hash( 'sha256', wp_json_encode( wc_get_order( $order->get_id() )->get_data() ) );
+  $http = 0;$spy = static function ( $value ) use ( &$http ) { ++$http;return new WP_Error( 'unexpected_http', 'Local PDF must not make network requests.' ); };add_filter( 'pre_http_request', $spy );
+  try {
+   $record = Alkamy_Admin::local_record( $order, array( 'type'=>'invoice', 'alkamy_address'=>array( '_billing_first_name'=>'Unsaved' ), 'sections'=>array( array( 'heading'=>'Draft terms', 'body'=>'Draft body', 'documents'=>array( 'invoice' ) ) ), 'alkamy_fields_present'=>'1', 'alkamy_custom_fields'=>array( array( 'label'=>'Draft reference', 'value'=>'PO-UAT' ) ) ) );
+   $check( 'Real negative fee reconciles in local document.', 9000 === $record['snapshot']['total'] && -1000 === $record['snapshot']['lines'][1]['net'] );
+   $check( 'Preview reflects unsaved address, sections and custom fields.', false !== strpos( $record['snapshot']['customer']['name'], 'Unsaved' ) && 'Draft terms' === $record['snapshot']['sections'][0]['heading'] && 'PO-UAT' === $record['snapshot']['customFields'][0]['value'] );
+   $check( 'Real order generates a PDF locally.', 0 === strpos( Alkamy_Local_Pdf::render( $record ), '%PDF-' ) );
+   foreach ( array( 'quotation', 'packing_slip', 'delivery_order' ) as $type ) { $record = Alkamy_Local_Pdf::record( $order, $type );$check( $type . ' generates a PDF locally.', 0 === strpos( Alkamy_Local_Pdf::render( $record ), '%PDF-' ) ); }
+  } finally { remove_filter( 'pre_http_request', $spy ); }
+  $check( 'Local documents make no provider or service requests.', 0 === $http );
+  $check( 'Draft PDF requests leave persisted order untouched.', $before === hash( 'sha256', wp_json_encode( wc_get_order( $order->get_id() )->get_data() ) ) );
+  $order->set_status( 'completed' );$order->save();$record = Alkamy_Local_Pdf::record( $order, 'invoice' );$html = Alkamy_Layout::html( $record );
+  $check( 'Paid export suppresses a fresh payment demand.', '' === $record['paymentUrl'] && false === strpos( $html, 'Payment due within' ) );
+  $refund = wc_create_refund( array( 'order_id'=>$order->get_id(), 'amount'=>25, 'reason'=>'Test partial refund', 'refund_payment'=>false, 'restock_items'=>false ) );
+  if ( is_wp_error( $refund ) ) { throw new RuntimeException( $refund->get_error_message() ); }
+  $ioefwp_made['orders'][] = $refund->get_id();$order = wc_get_order( $order->get_id() );$record = Alkamy_Local_Pdf::record( $order, 'credit_note', $refund->get_id() );
+  $check( 'Existing partial refund uses its own credit amount and order reference.', 2500 === $record['snapshot']['total'] && 'Unnumbered invoice' === $record['originalNumber'] );
+  $check( 'Existing refund credit note generates a PDF locally.', 0 === strpos( Alkamy_Local_Pdf::render( $record ), '%PDF-' ) );
+  $request = new WP_REST_Request( 'GET', '/wp/v2/alkamy_pdf_layout' );$user = get_current_user_id();wp_set_current_user( 0 );
+  try { $denied = Alkamy_Layout_Editor::rest_access( null, rest_get_server(), $request );$check( 'Anonymous REST cannot read store layouts.', is_wp_error( $denied ) && 403 === $denied->get_error_data()['status'] ); } finally { wp_set_current_user( $user ); }
+ }
+);
+
+$ioefwp_group('Assigned document numbers',static function(callable $check) use($ioefwp_order,&$ioefwp_made):void{
+ $order=$ioefwp_order();$order->set_total(0);$order->save();$other=$ioefwp_order();$other->save();
+ $input=array('invoice'=>'INV-UAT-0001','quotation'=>'QUOT-UAT-0001','delivery_order'=>'DO-UAT-0001','packing_slip'=>'PS-UAT-0001');
+ Alkamy_Document_Numbers::apply($order,$input);$order->save();$order=wc_get_order($order->get_id());
+ foreach($input as $type=>$number){$record=Alkamy_Local_Pdf::record($order,$type);$check('Saved '.$type.' reference retained.', $number === $record['number']);$html=Alkamy_Layout::html($record);$check('PDF masthead separates '.$type.' number and Woo reference.',false !== strpos($html,$number) && (string)$order->get_order_number() === $record['orderReference']);}
+ try{Alkamy_Document_Numbers::apply($other,array('invoice'=>'INV-UAT-0001'));$check('Duplicate invoice number refused.',false);}catch(InvalidArgumentException $e){$check('Duplicate invoice number refused.',true);}
+ $hash=hash('sha256',wp_json_encode(wc_get_order($order->get_id())->get_data()));
+ $record=Alkamy_Admin::local_record($order,array('type'=>'invoice','alkamy_document_numbers'=>array('invoice'=>'INV-UAT-DRAFT')));
+ $check('Unsaved number is visible in draft preview.','INV-UAT-DRAFT' === $record['number']);
+ $check('Number preview leaves persisted order untouched.',$hash === hash('sha256',wp_json_encode(wc_get_order($order->get_id())->get_data())));
+ $check('WooCommerce order number remains unchanged.',(string)$order->get_id() === (string)$order->get_order_number());
+});
+
+// Optional browser fixture for the disposable store only; tests are excluded from shipped packages.
+if(isset($_GET['number_fixture'])){
+ $fixture_id=(int)get_option('alkamy_number_fixture');$fixture=$fixture_id ? wc_get_order($fixture_id) : false;
+ if(!$fixture){$fixture=wc_create_order();$fixture->set_currency('SGD');$fixture->set_billing_first_name('Sample');$fixture->set_billing_last_name('Buyer');$fixture->set_billing_email('buyer@example.test');$item=new WC_Order_Item_Product();$item->set_name('Sample display');$item->set_quantity(2);$item->set_subtotal(100);$item->set_total(100);$fixture->add_item($item);$fixture->set_total(100);$fixture->save();update_option('alkamy_number_fixture',$fixture->get_id(),false);}
+ echo 'Number fixture: ' . esc_url($fixture->get_edit_order_url()) . "\n";
+}
 
 // Clean up, and put the settings back.
 foreach ( array_unique( $ioefwp_made['orders'] ) as $ioefwp_id ) {

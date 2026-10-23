@@ -1,18 +1,35 @@
 /**
- * Inline Order Editor Pro: the order screen. Scoped to the add-on's own class names.
+ * Alkamy Order Editor Pro for WooCommerce: the order screen. Scoped to the add-on's own class names.
  */
+
+/* The discount form: one line under the order's totals, kept whole so it never wraps on a wide screen. */
+#woocommerce-order-items .ioefwp-discount-row td {
+	padding-top: 12px;
+	white-space: nowrap;
+}
 
 #woocommerce-order-items .ioefwp-discount-form {
 	align-items: center;
 	display: inline-flex;
-	flex-wrap: wrap;
 	gap: 6px;
 	vertical-align: middle;
 }
 
+#woocommerce-order-items .ioefwp-discount-row[hidden],
 #woocommerce-order-items .ioefwp-discount-form[hidden],
 #woocommerce-order-items .ioefwp-discount-open[hidden] {
 	display: none;
+}
+
+@media screen and (max-width: 782px) {
+	#woocommerce-order-items .ioefwp-discount-row td {
+		white-space: normal;
+	}
+
+	#woocommerce-order-items .ioefwp-discount-form {
+		flex-wrap: wrap;
+		justify-content: flex-end;
+	}
 }
 
 #woocommerce-order-items .ioefwp-discount-form[aria-busy="true"] {

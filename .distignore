@@ -10,3 +10,13 @@
 /README.md
 *.zip
 .DS_Store
+
+/docs
+
+/pdf-dependencies
+
+# CI and PHPUnit configuration/results are development-only.
+/phpunit.xml.dist
+/.phpunit.result.cache
+/.phpunit.cache
+/coverage

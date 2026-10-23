@@ -1,5 +1,5 @@
 /**
- * Inline Order Editor Pro: the Saved terms rows on WooCommerce > Settings > General.
+ * Alkamy Order Editor Pro for WooCommerce: the Saved terms rows on WooCommerce > Settings > General.
  */
 ( function () {
 	'use strict';

@@ -1,0 +1,8 @@
+{
+    "require": {
+        "dompdf/dompdf": "^3.1"
+    },
+    "require-dev": {
+        "humbug/php-scoper": "^0.18"
+    }
+}
