@@ -78,7 +78,11 @@ jobs:
           wp config set WP_DEBUG_LOG true --raw --path=wp
           wp config set WP_DEBUG_DISPLAY false --raw --path=wp
           wp core install --path=wp --url=http://127.0.0.1:8899 --title=CI --admin_user=admin --admin_password=ci-disposable-only --admin_email=ci@example.invalid --skip-email
-          wp plugin install woocommerce --version="$WOO_VERSION" --activate --path=wp
+          if [ "$WOO_VERSION" = "latest" ]; then
+            wp plugin install woocommerce --activate --path=wp
+          else
+            wp plugin install woocommerce --version="$WOO_VERSION" --activate --path=wp
+          fi
           wp plugin install free/build/inline-order-editor-for-woocommerce.zip --activate --path=wp
           wp plugin install plugin/build/marketplace/inline-order-editor-pro.zip --activate --path=wp
           wp plugin install plugin-check --activate --path=wp

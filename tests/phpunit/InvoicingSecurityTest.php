@@ -87,11 +87,18 @@ final class InvoicingSecurityTest extends TestCase {
         $this->assertStringNotContainsString( '</script', $scripts );
         $this->assertStringContainsString( '\\u003C', $scripts );
         $attrs = array( 'part' => 'paragraph', 'text' => 'Merchant text ' . $attack, 'textAlign' => 'right', 'style' => array( 'color' => array( 'text' => 'red; background:url(javascript:alert(1))' ) ), 'className' => '" onmouseover="alert(1)' );
-        $html = Alkamy_Layout_Editor::render( $attrs );
+        // Exercise the registered block so WordPress supplies its normal render context.
+        $html = render_block( array( 'blockName' => 'alkamy/document-part', 'attrs' => $attrs, 'innerBlocks' => array(), 'innerHTML' => '', 'innerContent' => array() ) );
         $this->assertStringNotContainsString( '<script>', $html );
         $this->assertStringNotContainsString( '<img src=x', $html );
         $this->assertStringNotContainsString( 'url(javascript:', $html );
-        $this->assertStringNotContainsString( 'onmouseover=', $html );
+        // An escaped class value may contain the literal text; reject actual event-handler attributes.
+        $document = new DOMDocument();
+        $this->assertTrue( $document->loadHTML( '<!doctype html><html><body>' . $html . '</body></html>' ) );
+        $xpath = new DOMXPath( $document );
+        $events = $xpath->query( '//@*[starts-with(translate(name(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "on")]' );
+        $this->assertInstanceOf( DOMNodeList::class, $events );
+        $this->assertSame( 0, $events->length );
         $this->assertStringContainsString( 'Merchant text', $html );
         $this->assertStringContainsString( 'text-align:right', $html );
         wp_set_current_user( 0 );
