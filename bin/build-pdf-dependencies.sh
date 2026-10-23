@@ -13,6 +13,7 @@ cp "$ROOT/pdf-dependencies/composer.json" "$ROOT/pdf-dependencies/composer.lock"
 export ALKAMY_PDF_SOURCE="$BUILD/runtime/vendor"
 "$BUILD/tools/vendor/bin/php-scoper" add-prefix --config="$ROOT/pdf-dependencies/scoper.inc.php" --output-dir="$BUILD/scoped" --no-interaction
 cp "$ROOT/pdf-dependencies/autoload.php" "$BUILD/scoped/autoload.php"
+php "$ROOT/bin/notice-pdf-dependencies.php" "$BUILD/scoped"
 mkdir -p "$ROOT/modules/invoicing/vendor"
 rsync -a --delete "$BUILD/scoped/" "$ROOT/modules/invoicing/vendor/"
 cp "$ROOT/pdf-dependencies/PROVENANCE.md" "$ROOT/modules/invoicing/vendor/PROVENANCE.md"

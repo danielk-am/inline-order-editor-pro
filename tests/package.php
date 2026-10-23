@@ -96,6 +96,15 @@ foreach ( array( 'LICENSE', 'LICENSES/GPL-3.0.txt', 'LICENSES/DejaVu-Fonts.txt',
  ioefw_package_check( is_file( $ioefw_dir . '/' . $notice ) && filesize( $ioefw_dir . '/' . $notice ) > 100, 'Required distribution license/notice ships: ' . $notice );
 }
 
+$missing_notices = array();
+$vendor = $ioefw_dir . '/modules/invoicing/vendor';
+foreach ( new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $vendor, FilesystemIterator::SKIP_DOTS ) ) as $file ) {
+ if ( ! $file->isFile() || 'php' !== $file->getExtension() || $file->getPathname() === $vendor . '/autoload.php' ) { continue; }
+ $contents = file_get_contents( $file->getPathname() );
+ if ( false !== strpos( $contents, 'AlkamyPdfVendor' ) && false === strpos( $contents, 'Modified by Alkamy on 2026-10-23: namespaces/references prefixed to avoid plugin conflicts; upstream copyright/licence retained.' ) ) { $missing_notices[] = $file->getPathname(); }
+}
+ioefw_package_check( ! $missing_notices, 'Every namespace-prefixed third-party PHP file carries a dated modification notice.' );
+
 echo ( $ioefw_failed ? $ioefw_failed . ' failed.' : 'All passed.' ) . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- A command-line script.
 
 exit( $ioefw_failed ? 1 : 0 );
